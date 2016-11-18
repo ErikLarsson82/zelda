@@ -19,8 +19,8 @@ requirejs([
     
     var config = {
         callback: function(delta) { game.tick(delta); game.draw(context, canvas); },
-        fpsMode: 'fixed',
-        fps: 60,
+        fpsMode: 'screenHz',
+        //fps: 60,
         autoStart: true,
         createDebugKeyBoardShortcuts: true
     }

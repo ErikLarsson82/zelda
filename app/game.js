@@ -33,8 +33,12 @@ define('app/game', [
             gameObject.draw(context);
         });
     }
+
+    game.addGameObject = function(obj) {
+        this.gameObjects.push(obj);
+    }.bind(game)
     
-    game.TILE_SIZE = 32;
+    game.TILE_SIZE = 16;
 
     function loadMap() {
 
@@ -46,8 +50,8 @@ define('app/game', [
                   aabb: {
                     x: colIdx * game.TILE_SIZE,
                     y: rowIdx * game.TILE_SIZE,
-                    width: game.TILE_SIZE,
-                    height: game.TILE_SIZE
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
                   },
                   game: game
                 })
@@ -58,10 +62,11 @@ define('app/game', [
                   aabb: {
                     x: colIdx * game.TILE_SIZE,
                     y: rowIdx * game.TILE_SIZE,
-                    width: game.TILE_SIZE,
+                    width: game.TILE_SIZE * 2,
                     height: game.TILE_SIZE
                   },
-                  game: game
+                  game: game,
+                  input: userInput.getInput
                 })
                 game.gameObjects.push(tile)
               break;
