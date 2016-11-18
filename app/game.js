@@ -4,14 +4,16 @@ define('app/game', [
     'utils',
     'app/map',
     'app/GameObject',
-    'app/Player'
+    'app/Player',
+    'app/Enemy',
 ], function (
     _,
     userInput,
     utils,
     map,
     GameObject,
-    Player
+    Player,
+    Enemy
 ) {    
     
     var game = {}
@@ -67,6 +69,18 @@ define('app/game', [
                   },
                   game: game,
                   input: userInput.getInput
+                })
+                game.gameObjects.push(tile)
+              break;
+              case 3:
+                var tile = new Enemy({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE,
+                    y: rowIdx * game.TILE_SIZE,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
                 })
                 game.gameObjects.push(tile)
               break;
