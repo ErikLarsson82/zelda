@@ -8,16 +8,24 @@ define('app/Enemy', [
             super(config)
             this.aabb = config.aabb;
             this.color = config.color || "blue";
-            this.speed = 0.2;
+            this.speed = 0.1;
+        }
+        hurt() {
+            this.ignoreDynamicCollisions = true;
+            var direction = {
+                x: 0,
+                y: 0
+            }
+            this.newMove(direction, 5)
         }
         tick() {
             if (!this.movement) {
-                this.moveconsumed = true;
+                this.ignoreDynamicCollisions = false;
                 var direction = {
                     x: 0,
                     y: (Math.random() < 0.5) ? this.speed : -this.speed
                 }
-                this.newMove(direction);   
+                this.newMove(direction, 1);   
             }
             super.tick();
         }

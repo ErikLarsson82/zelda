@@ -3,6 +3,8 @@ class GameObject {
     constructor(config) {
         this.game = config.game;
         this.aabb = config.aabb;
+        this.ignoreDynamicCollisions = false;
+        this.previousPosition = { x: config.aabb.x, y: config.aabb.y }
         this.color = config.color || "#444444";
     }
     tick() {}

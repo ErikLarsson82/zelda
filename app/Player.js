@@ -1,7 +1,8 @@
 define('app/Player', [
     'app/GridMover',
+    'utils',
     'underscore'
-], function(GridMover, _) { 
+], function(GridMover, utils, _) { 
 
     class Player extends GridMover {
         constructor(config) {
@@ -9,15 +10,35 @@ define('app/Player', [
             this.input = config.input;
             this.aabb = config.aabb;
             this.color = config.color || "red";
+            this.hurtSpeed = 2;
+            this.invulnerableTimer = 0;
+        }
+        hurt(direction) {
+            var angle = utils.getAngle({x: 0, y: 0}, direction)
+            var normalized = utils.getNormalizedVector(angle)
+            this.ignoreDynamicCollisions = true;
+            this.newMove(normalized, 5)
+            this.invulnerableTimer = 200;
         }
         tick() {
             var pad = this.input(0);
-            
-            //Remove eventual diagonal d-pad
-            if (Math.abs(pad.axes[0]) === 1) pad.axes[1] = 0;
 
-            this.makeDecision(pad);
-            super.tick();
+            this.invulnerableTimer--;
+
+            if (this.invulnerableTimer < 0) {
+                this.ignoreDynamicCollisions = false;
+                
+                //Remove eventual diagonal d-pad
+                if (Math.abs(pad.axes[0]) === 1) pad.axes[1] = 0;
+
+                this.makeDecision(pad);
+                super.tick();
+            } else {
+                super.tick();
+                return;
+            }
+            
+            
         }
         makeDecision(pad) {
             if (
@@ -37,11 +58,12 @@ define('app/Player', [
                     x: x1 + x2,
                     y: y1 + y2
                 }
-                this.newMove(direction);
+                this.newMove(direction, 1);
             }
         }
         draw(context) {
-            context.fillStyle = this.color;
+
+            context.fillStyle = (this.invulnerableTimer < 0) ? this.color : "black";
             context.fillRect(this.aabb.x, this.aabb.y, this.aabb.width, this.aabb.height);
         }
     }
