@@ -41,6 +41,10 @@ define('app/game', [
         _.each(collisions, (collision) => {
             game.resolveCollision(collision)
         });
+
+        this.gameObjects = _.filter(this.gameObjects, (obj) => {
+            return (!obj.markedForRemoval)
+        })
     }
     game.draw = function(context, canvas) {
         context.fillStyle = "white";
@@ -78,32 +82,40 @@ define('app/game', [
         game.detectTypes(collision, Player, Tile, function(player, tile) {
             game.alignDynamicWithStatic(player, tile);
             player.movement = null;
-            tile.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
         })
 
         game.detectTypes(collision, Enemy, Tile, function(enemy, tile) {
+            game.alignDynamicWithStatic(enemy, tile);
             enemy.movement = null;
-            tile.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
         })
 
         game.detectTypes(collision, Player, Enemy, function(player, enemy) {
             var knockDirection = game.decideKnockDirection(enemy, player);
             player.hurt(knockDirection);
-            enemy.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
         })
 
         game.detectTypes(collision, Sword, Enemy, function(sword, enemy) {
             var knockDirection = game.decideKnockDirection(sword, enemy);
-            console.log(knockDirection)
             enemy.hurt(knockDirection);
-            enemy.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
+            sword.destroy();
         })
     }
 
     game.decideKnockDirection = function(knocker, knockee) {
+        var nooneIsMoving = (
+            knocker.aabb.x === knocker.previousPosition.x &&
+            knocker.aabb.y === knocker.previousPosition.y &&
+            knockee.aabb.x === knockee.previousPosition.x &&
+            knockee.aabb.y === knockee.previousPosition.y
+        )
+        if (nooneIsMoving) {
+            return {
+                x: knocker.getDirection().x,
+                y: knocker.getDirection().y
+            }
+        }
         var knockerIsOnGrid = (knocker.aabb.x % game.TILE_SIZE === 0 && knocker.aabb.y % game.TILE_SIZE === 0)
         var knockeeIsOnGrid = (knockee.aabb.x % game.TILE_SIZE === 0 && knockee.aabb.y % game.TILE_SIZE === 0)
-        //var knockeeTryingToMove = knockee instanceof GridMover && (Math.abs(knockee.getDirection().x) > 0 || Math.abs(knockee.getDirection().y) > 0)
         var knockeeTryingToMove = knockee instanceof GridMover && (knockee.aabb.x !== knockee.previousPosition.x || knockee.aabb.y !== knockee.previousPosition.y)
 
         function invertDirection(dir) {
@@ -117,7 +129,6 @@ define('app/game', [
             //knocker moves into knockee and pushes him back
             return knocker.getDirection();
         } else {
-            console.log('knockee moved', knockee.getDirection(), invertDirection(knockee.getDirection()));
             //This means that knockee moved and
             //knockee can only be knocked in it's moving direction
             //invert knockees direction
@@ -138,7 +149,7 @@ define('app/game', [
             var list = [
                 [Enemy, Enemy],
                 [Sword, Player],
-                [Sword, Tile],
+                [Sword, Tile]
             ];
             var existsInFilterList = (_.filter(list, (pair) => {
                 return ((comparator instanceof pair[0] && comparee instanceof pair[1]) ||

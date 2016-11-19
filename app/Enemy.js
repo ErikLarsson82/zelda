@@ -11,20 +11,18 @@ define('app/Enemy', [
             this.color = config.color || "blue";
             this.hurtSpeed = 2;
             this.speed = 0.1;
-            this.foo = 0.1;
         }
         hurt(direction) {
-            this.foo = 0
             this.ignoreDynamicCollisions = true;
-            var normalized = utils.normalizeVector(direction, 0.1)
-            this.newMove(normalized, 4)
+            var normalized = utils.normalizeVector(direction, 7)
+            this.newMove(normalized, 3)
         }
         tick() {
             if (!this.movement) {
                 this.ignoreDynamicCollisions = false;
                 var direction = {
                     x: 0,
-                    y: 0//(Math.random() < 0.5) ? this.speed : -this.speed
+                    y: -0.1 //(Math.random() < 0.5) ? this.speed : -this.speed
                 }
                 this.newMove(direction, 1);   
             }
