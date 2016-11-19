@@ -7,6 +7,7 @@ define('app/game', [
     'app/GridMover',
     'app/Tile',
     'app/Player',
+    'app/Sword',
     'app/Enemy',
 ], function (
     _,
@@ -17,6 +18,7 @@ define('app/game', [
     GridMover,
     Tile,
     Player,
+    Sword,
     Enemy
 ) {    
     
@@ -37,7 +39,7 @@ define('app/game', [
         var collisions = game.detectCollisions();
 
         _.each(collisions, (collision) => {
-            game.resovleCollision(collision)
+            game.resolveCollision(collision)
         });
     }
     game.draw = function(context, canvas) {
@@ -59,9 +61,28 @@ define('app/game', [
         }
     }
 
-    game.resovleCollision = function(collision) {
+    game.alignDynamicWithStatic = function(dynamic, static) {
+        if (dynamic.aabb.x > dynamic.previousPosition.x) {
+            dynamic.aabb.x = static.aabb.x - dynamic.aabb.width;
+        } else if (dynamic.aabb.x < dynamic.previousPosition.x) {
+            dynamic.aabb.x = static.aabb.x + static.aabb.width;
+        }
+        if (dynamic.aabb.y > dynamic.previousPosition.y) {
+            dynamic.aabb.y = static.aabb.y - dynamic.aabb.height;
+        } else if (dynamic.aabb.y < dynamic.previousPosition.y) {
+            dynamic.aabb.y = static.aabb.y + static.aabb.height;
+        }
+    }
+
+    game.resolveCollision = function(collision) {
         game.detectTypes(collision, Player, Tile, function(player, tile) {
+            game.alignDynamicWithStatic(player, tile);
             player.movement = null;
+            tile.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
+        })
+
+        game.detectTypes(collision, Enemy, Tile, function(enemy, tile) {
+            enemy.movement = null;
             tile.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
         })
 
@@ -70,12 +91,20 @@ define('app/game', [
             player.hurt(knockDirection);
             enemy.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
         })
+
+        game.detectTypes(collision, Sword, Enemy, function(sword, enemy) {
+            var knockDirection = game.decideKnockDirection(sword, enemy);
+            console.log(knockDirection)
+            enemy.hurt(knockDirection);
+            enemy.color = "#ff" + Math.round(Math.random() * 9) + "FFF";
+        })
     }
 
     game.decideKnockDirection = function(knocker, knockee) {
         var knockerIsOnGrid = (knocker.aabb.x % game.TILE_SIZE === 0 && knocker.aabb.y % game.TILE_SIZE === 0)
         var knockeeIsOnGrid = (knockee.aabb.x % game.TILE_SIZE === 0 && knockee.aabb.y % game.TILE_SIZE === 0)
-        var knockeeTryingToMove = (Math.abs(knockee.getDirection().x) > 0 || Math.abs(knockee.getDirection().y) > 0)
+        //var knockeeTryingToMove = knockee instanceof GridMover && (Math.abs(knockee.getDirection().x) > 0 || Math.abs(knockee.getDirection().y) > 0)
+        var knockeeTryingToMove = knockee instanceof GridMover && (knockee.aabb.x !== knockee.previousPosition.x || knockee.aabb.y !== knockee.previousPosition.y)
 
         function invertDirection(dir) {
             return {
@@ -88,6 +117,7 @@ define('app/game', [
             //knocker moves into knockee and pushes him back
             return knocker.getDirection();
         } else {
+            console.log('knockee moved', knockee.getDirection(), invertDirection(knockee.getDirection()));
             //This means that knockee moved and
             //knockee can only be knocked in it's moving direction
             //invert knockees direction
@@ -99,12 +129,30 @@ define('app/game', [
         var collisions = [];
 
         function collisionFilterIgnore(comparator, comparee) {
-            var condition1 = (comparator instanceof GridMover &&
+            var isOneOfTheGridMoversIgnoring = (comparator instanceof GridMover &&
                     comparee instanceof GridMover &&
                     (comparator.ignoreDynamicCollisions || comparee.ignoreDynamicCollisions))
 
-            var condition2 = (comparator instanceof Enemy && comparee instanceof Enemy);
-            return (condition1 || condition2)
+            var isAnyoneMarkedForRemoval = (comparator.markedForRemoval || comparee.markedForRemoval);
+
+            var list = [
+                [Enemy, Enemy],
+                [Sword, Player],
+                [Sword, Tile],
+            ];
+            var existsInFilterList = (_.filter(list, (pair) => {
+                return ((comparator instanceof pair[0] && comparee instanceof pair[1]) ||
+                        (comparator instanceof pair[1] && comparee instanceof pair[0]))
+            }).length >= 1)
+
+            return (isOneOfTheGridMoversIgnoring || isAnyoneMarkedForRemoval || existsInFilterList)
+        }
+
+        function alreadyCollided(obj1, obj2) {
+            return (_.filter(collisions, (pair) => {
+                return ((pair.obj1 === obj1 && pair.obj2 === obj2) ||
+                        (pair.obj1 === obj2 && pair.obj2 === obj1))
+            }).length >= 1);
         }
 
         _.each(this.gameObjects, (comparator) => {
@@ -113,12 +161,8 @@ define('app/game', [
                 if (comparator === comparee) return;
 
                 if (utils.isAABBOverlappingAABB(comparator.aabb, comparee.aabb) &&
-                    !collisionFilterIgnore(comparator, comparee)) {
-
-                    comparator.aabb.x = comparator.previousPosition.x;
-                    comparator.aabb.y = comparator.previousPosition.y;
-                    comparee.aabb.x = comparee.previousPosition.x;
-                    comparee.aabb.y = comparee.previousPosition.y;
+                    !collisionFilterIgnore(comparator, comparee) &&
+                    !alreadyCollided(comparator, comparee)) {
 
                     collisions.push({
                         obj1: comparator,
@@ -193,6 +237,18 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(game.enemy)
+              break;
+              case 4:
+                game.sword = new Sword({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE,
+                    y: rowIdx * game.TILE_SIZE,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(game.sword)
               break;
             }
           })

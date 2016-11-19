@@ -1,29 +1,30 @@
 define('app/Enemy', [
     'app/GridMover',
+    'utils',
     'underscore'
-], function(GridMover, _) { 
+], function(GridMover, utils, _) { 
 
     class Enemy extends GridMover {
         constructor(config) {
             super(config)
             this.aabb = config.aabb;
             this.color = config.color || "blue";
+            this.hurtSpeed = 2;
             this.speed = 0.1;
+            this.foo = 0.1;
         }
-        hurt() {
+        hurt(direction) {
+            this.foo = 0
             this.ignoreDynamicCollisions = true;
-            var direction = {
-                x: 0,
-                y: 0
-            }
-            this.newMove(direction, 5)
+            var normalized = utils.normalizeVector(direction, 0.1)
+            this.newMove(normalized, 4)
         }
         tick() {
             if (!this.movement) {
                 this.ignoreDynamicCollisions = false;
                 var direction = {
                     x: 0,
-                    y: (Math.random() < 0.5) ? this.speed : -this.speed
+                    y: 0//(Math.random() < 0.5) ? this.speed : -this.speed
                 }
                 this.newMove(direction, 1);   
             }

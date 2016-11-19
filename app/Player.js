@@ -14,11 +14,10 @@ define('app/Player', [
             this.invulnerableTimer = 0;
         }
         hurt(direction) {
-            var angle = utils.getAngle({x: 0, y: 0}, direction)
-            var normalized = utils.getNormalizedVector(angle)
+            var normalized = utils.normalizeVector(direction, 15)
             this.ignoreDynamicCollisions = true;
-            this.newMove(normalized, 5)
-            this.invulnerableTimer = 200;
+            this.newMove(normalized, 4)
+            this.invulnerableTimer = 300;
         }
         tick() {
             var pad = this.input(0);
