@@ -21,8 +21,8 @@ define('app/Enemy', [
             if (!this.movement) {
                 this.ignoreDynamicCollisions = false;
                 var direction = {
-                    x: 0,
-                    y: -0.1 //(Math.random() < 0.5) ? this.speed : -this.speed
+                    x: 0.1,
+                    y: 0 //(Math.random() < 0.5) ? this.speed : -this.speed
                 }
                 this.newMove(direction, 1);   
             }

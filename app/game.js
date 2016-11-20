@@ -128,6 +128,36 @@ define('app/game', [
             //this means knocker is moving, use it's direction
             //knocker moves into knockee and pushes him back
             return knocker.getDirection();
+        } else if (knockerIsOnGrid) {
+            // If the knocker is on the grid, the knockee can both be moving away
+            // or towards the knocker, but will still be the one moving - and always away from the knocker
+            var diffVector;
+            if (Math.abs(knockee.getDirection().x) > 0) {
+                if (knocker.aabb.x > knockee.aabb.x) {
+                    diffVector = {
+                        x: -1,
+                        y: 0
+                    }
+                } else {
+                    diffVector = {
+                        x: 1,
+                        y: 0
+                    }
+                }
+            } else {
+                if (knocker.aabb.y > knockee.aabb.y) {
+                    diffVector = {
+                        x: 0,
+                        y: -1
+                    }
+                } else {
+                    diffVector = {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            }
+            return diffVector;
         } else {
             //This means that knockee moved and
             //knockee can only be knocked in it's moving direction
