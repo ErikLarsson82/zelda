@@ -2,6 +2,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var heart = new Image();
   heart.src = "./assets/images/heart.png";
 
+  var tile = new Image();
+  tile.src = "./assets/images/wall.png";
+
   var player_up = new Image();
   player_up.src = "./assets/images/player_up.png";
 
@@ -57,6 +60,7 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
 
   return {
     heart: heart,
+    tile: tile,
     player_walking_up: player_walking_up,
     player_walking_down: player_walking_down,
     player_walking_left: player_walking_left,

@@ -7,6 +7,7 @@ define('app/Spawn', [
             super(config)
             this.name = "Spawn";
         }
+        draw() {}
     }
 
     return Spawn
