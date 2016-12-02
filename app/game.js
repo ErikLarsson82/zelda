@@ -128,8 +128,16 @@ define('app/game', [
         context.fillStyle = "black";
         context.fillRect(0,0,canvas.width, game.TILE_SIZE * 4);
 
-        context.fillStyle = "white";
-        context.fillText(game.player.hp, 700, 100);       
+        game.drawHealth(context);
+    }
+
+    game.drawHealth = function(context) {
+        _.each(new Array(6), function(unused, idx) {
+            context.drawImage(images.GUI_emptyheart, 600 + (64 * idx), 32);
+        })
+        _.each(new Array(game.player.hp), function(unused, idx) {
+            context.drawImage(images.GUI_heart, 600 + (64 * idx), 32);
+        })
     }
 
     game.detectTypes = function(collision, type1, type2, callback) {

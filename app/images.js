@@ -2,6 +2,12 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var heart = new Image();
   heart.src = "./assets/images/heart.png";
 
+  var GUI_emptyheart = new Image();
+  GUI_emptyheart.src = "./assets/images/GUI_emptyheart.png";
+
+  var GUI_heart = new Image();
+  GUI_heart.src = "./assets/images/GUI_heart.png";
+
   var tile = new Image();
   tile.src = "./assets/images/wall.png";
 
@@ -60,6 +66,8 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
 
   return {
     heart: heart,
+    GUI_emptyheart: GUI_emptyheart,
+    GUI_heart: GUI_heart,
     tile: tile,
     player_walking_up: player_walking_up,
     player_walking_down: player_walking_down,
