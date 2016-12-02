@@ -10,6 +10,8 @@ define('app/map', [], function() {
         var c = { type: "WinTile" };
 
         var e = { type: "Enemy" };
+        var f = { type: "EnemySlider", horizontal: false };
+        var g = { type: "EnemySlider", horizontal: true };
         var s = { type: "Spawn" };
         var h = { type: "Heart" };
         
@@ -46,8 +48,8 @@ define('app/map', [], function() {
                 [  ,a ,a ,a ,a ,a ,a ,a ,dR,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,t2],
+                [  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,t2],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,s ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
@@ -109,12 +111,12 @@ define('app/map', [], function() {
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,e ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,f ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [t1,b ,  ,  ,  ,kR,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,g ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],

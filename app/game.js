@@ -14,6 +14,7 @@ define('app/game', [
     'app/Player',
     'app/Sword',
     'app/Enemy',
+    'app/EnemySlider',
     'app/EnemyStopperTile',
     'app/Heart',
     'app/KeyRed',
@@ -38,6 +39,7 @@ define('app/game', [
     Player,
     Sword,
     Enemy,
+    EnemySlider,
     EnemyStopperTile,
     Heart,
     KeyRed,
@@ -213,6 +215,17 @@ define('app/game', [
             enemy.movement = null;
         })
 
+
+        game.detectTypes(collision, EnemySlider, Tile, function(enemySlider, tile) {
+            game.alignDynamicWithStatic(enemySlider, tile);
+            enemySlider.movement = null;
+        })
+
+        game.detectTypes(collision, EnemySlider, EnemyStopperTile, function(enemySlider, tile) {
+            game.alignDynamicWithStatic(enemySlider, tile);
+            enemySlider.movement = null;
+        })
+
         game.detectTypes(collision, Player, KeyRed, function(player, key) {
             key.destroy();
             game.playSound('foundkey');
@@ -276,6 +289,19 @@ define('app/game', [
         game.detectTypes(collision, Sword, Enemy, function(sword, enemy) {
             var knockDirection = game.decideKnockDirection(sword, enemy);
             enemy.hurt(knockDirection);
+            game.playSound('hit');
+            sword.destroy();
+        })
+
+        game.detectTypes(collision, Player, EnemySlider, function(player, enemySlider) {
+            var knockDirection = game.decideKnockDirection(enemySlider, player);
+            player.hurt(knockDirection);
+            game.playSound('takedamage');
+        })
+
+        game.detectTypes(collision, Sword, EnemySlider, function(sword, enemySlider) {
+            var knockDirection = game.decideKnockDirection(sword, enemySlider);
+            enemySlider.hurt(knockDirection);
             game.playSound('hit');
             sword.destroy();
         })
@@ -572,6 +598,19 @@ define('app/game', [
                     width: game.TILE_SIZE * 2,
                     height: game.TILE_SIZE * 2
                   },
+                  game: game
+                })
+                game.gameObjects.push(enemy)
+              break;
+              case "EnemySlider":
+                var enemy = new EnemySlider({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  horizontal: column.horizontal,
                   game: game
                 })
                 game.gameObjects.push(enemy)

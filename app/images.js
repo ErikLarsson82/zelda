@@ -35,6 +35,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var enemy1 = new Image();
   enemy1.src = "./assets/images/enemy1.png";
 
+  var enemy2 = new Image();
+  enemy2.src = "./assets/images/enemy2.png";
+
   var swordeffect_up = new Image();
   swordeffect_up.src = "./assets/images/swordeffect_up.png";
 
@@ -112,6 +115,7 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
     swordeffect_left: swordeffect_left,
     swordeffect_right: swordeffect_right,
     enemy1: enemy1,
+    enemy2: enemy2,
     heart: heart,
     GUI_emptyheart: GUI_emptyheart,
     GUI_heart: GUI_heart,
