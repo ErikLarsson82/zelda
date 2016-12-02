@@ -14,6 +14,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var wintile = new Image();
   wintile.src = "./assets/images/winwall.png";
 
+  var caveentrance = new Image();
+  caveentrance.src = "./assets/images/caveentrance.png";
+
   var key_red = new Image();
   key_red.src = "./assets/images/key_red.png";
 
@@ -121,6 +124,7 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
     GUI_heart: GUI_heart,
     tile: tile,
     wintile: wintile,
+    caveentrance: caveentrance,
     player_walking_up: player_walking_up,
     player_walking_down: player_walking_down,
     player_walking_left: player_walking_left,

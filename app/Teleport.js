@@ -1,6 +1,7 @@
 define('app/Teleport', [
-    'app/GameObject'
-], function(GameObject) { 
+    'app/GameObject',
+    'app/images'
+], function(GameObject, images) { 
 
     class Teleport extends GameObject {
         constructor(config) {
@@ -9,6 +10,9 @@ define('app/Teleport', [
             this.linkSpawnDirection = config.linkSpawnDirection;
             this.destination = config.destination;
             this.color = config.color || "#333333";
+        }
+        draw(context) {
+            context.drawImage(images.caveentrance, this.aabb.x, this.aabb.y);
         }
     }
 
