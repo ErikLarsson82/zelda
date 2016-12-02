@@ -20,6 +20,7 @@ define('app/Player', [
             this.teleportTimer = 10;
             this.latestDirection = { x: 0, y: 1 }
             this.walkingSpritesheet = images.player_walking_up;
+            this.swordScheduled = false;
 
             if (config.initialMove) {
                 this.initialMove = function() {
@@ -54,7 +55,10 @@ define('app/Player', [
         tick() {
             var pad = this.input(0);
             this.walkingSpritesheet.tick(1000/60);
-                
+            
+            if (pad.buttons[2].pressed && this.swordTimer < 0) {
+                this.swordScheduled = true;
+            }
             this.invulnerableTimer--;
             this.teleportTimer--;
             this.swordTimer--;
@@ -104,9 +108,10 @@ define('app/Player', [
             if (this.movement !== null) return;
             this.walkingSpritesheet.pause();
 
-            if (pad.buttons[2].pressed && this.swordTimer < 0) {
+            if (this.swordScheduled) {
                 this.spawnSword();
-                this.swordTimer = 20;
+                this.swordTimer = 30;
+                this.swordScheduled = false;
                 return;
             }
 
