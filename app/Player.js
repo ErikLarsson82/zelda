@@ -13,7 +13,7 @@ define('app/Player', [
             this.aabb = config.aabb;
             this.color = config.color || "red";
             this.hurtSpeed = 2;
-            this.speed = 1.4;
+            this.speed = 3;
             this.invulnerableTimer = 0;
             this.swordTimer = 0;
             this.teleportTimer = 100;
@@ -41,6 +41,13 @@ define('app/Player', [
             this.newMove(normalized, 4)
             this.invulnerableTimer = 70;
             this.hp--;
+        }
+        addHp(full) {
+            if (full) {
+                this.hp = 6;
+            } else if (this.hp < 6) {
+                this.hp++;
+            }
         }
         tick() {
             var pad = this.input(0);

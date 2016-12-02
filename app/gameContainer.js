@@ -3,7 +3,8 @@ requirejs.config({
     baseUrl: 'lib',
     paths: {
       'app': '../app',
-      'GameLoop': '../node_modules/gameloop-schwein/GameLoop'
+      'GameLoop': '../node_modules/gameloop-schwein/GameLoop',
+      'SpriteSheet': '../node_modules/spritesheet-canvas/SpriteSheet'
     }
 });
 
@@ -19,8 +20,8 @@ requirejs([
     
     var config = {
         callback: function(delta) { game.tick(delta); game.draw(context, canvas); },
-        fpsMode: 'screenHz',
-        //fps: 60,
+        fpsMode: 'fixed',
+        fps: 60,
         autoStart: true,
         createDebugKeyBoardShortcuts: true
     }

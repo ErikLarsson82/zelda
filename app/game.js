@@ -2,6 +2,7 @@ define('app/game', [
     'underscore',
     'userInput',
     'utils',
+    'app/images',
     'app/persistedData',
     'app/map',
     'app/GameObject',
@@ -13,10 +14,12 @@ define('app/game', [
     'app/Sword',
     'app/Enemy',
     'app/EnemyStopperTile',
+    'app/Heart',
 ], function (
     _,
     userInput,
     utils,
+    images,
     persistedData,
     map,
     GameObject,
@@ -27,7 +30,8 @@ define('app/game', [
     Player,
     Sword,
     Enemy,
-    EnemyStopperTile
+    EnemyStopperTile,
+    Heart
 ) {    
     
     var game = {}
@@ -170,6 +174,11 @@ define('app/game', [
         game.detectTypes(collision, Enemy, EnemyStopperTile, function(enemy, tile) {
             game.alignDynamicWithStatic(enemy, tile);
             enemy.movement = null;
+        })
+
+        game.detectTypes(collision, Player, Heart, function(player, heart) {
+            heart.destroy();
+            player.addHp();
         })
 
         game.detectTypes(collision, Player, Enemy, function(player, enemy) {

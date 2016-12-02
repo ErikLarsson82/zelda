@@ -1,8 +1,9 @@
 define('app/Enemy', [
     'app/GridMover',
+    'app/Heart',
     'utils',
     'underscore'
-], function(GridMover, utils, _) { 
+], function(GridMover, Heart, utils, _) { 
 
     class Enemy extends GridMover {
         constructor(config) {
@@ -11,11 +12,27 @@ define('app/Enemy', [
             this.color = config.color || "blue";
             this.hurtSpeed = 2;
             this.speed = 1;
+            this.hp = 2;
         }
         hurt(direction) {
-            this.ignoreDynamicCollisions = true;
-            var normalized = utils.normalizeVector(direction, 7)
-            this.newMove(normalized, 3)
+            this.hp--;
+            if (this.hp > 0) {
+                this.ignoreDynamicCollisions = true;
+                var normalized = utils.normalizeVector(direction, 7)
+                this.newMove(normalized, 3)
+            } else {
+                this.destroy();
+                var heart = new Heart({
+                  aabb: {
+                    x: this.aabb.x,
+                    y: this.aabb.y,
+                    width: this.game.TILE_SIZE,
+                    height: this.game.TILE_SIZE
+                  },
+                  game: this.game
+                })
+                this.game.gameObjects.push(heart);
+            }
         }
         tick() {
             if (!this.movement) {
