@@ -15,6 +15,10 @@ define('app/map', [], function() {
         var kR = { type: "KeyRed" };
         var kG = { type: "KeyGreen" };
         var kB = { type: "KeyBlue" };
+
+        var dR = { type: "DoorRed" };
+        var dG = { type: "DoorGreen" };
+        var dB = { type: "DoorBlue" };
         
         var t1 = {
             type: "Teleport",
@@ -40,11 +44,11 @@ define('app/map', [], function() {
                 [  ,  ,  ,  ,  ,  ,  ,a ,t1,t1,a ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,dR,  ,dG,  ,dB,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,t2],
                 [  ,a ,  ,  ,  ,  ,  ,kR,  ,kG,  ,kB,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,s ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],

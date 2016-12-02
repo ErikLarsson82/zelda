@@ -18,6 +18,9 @@ define('app/game', [
     'app/KeyRed',
     'app/KeyGreen',
     'app/KeyBlue',
+    'app/DoorRed',
+    'app/DoorGreen',
+    'app/DoorBlue',
 ], function (
     _,
     userInput,
@@ -37,7 +40,10 @@ define('app/game', [
     Heart,
     KeyRed,
     KeyGreen,
-    KeyBlue
+    KeyBlue,
+    DoorRed,
+    DoorGreen,
+    DoorBlue
 ) {    
     
     var game = {}
@@ -212,6 +218,33 @@ define('app/game', [
             persistedData.set('key_blue', true);
         })
 
+        game.detectTypes(collision, Player, DoorRed, function(player, door) {
+            if (persistedData.get().key_red) {
+                door.destroy();
+                persistedData.set('door_red', true);
+            } else {
+                player.movement = null;
+            }
+        })
+
+        game.detectTypes(collision, Player, DoorGreen, function(player, door) {
+            if (persistedData.get().key_green) {
+                door.destroy();
+                persistedData.set('door_green', true);
+            } else {
+                player.movement = null;
+            }
+        })
+
+        game.detectTypes(collision, Player, DoorBlue, function(player, door) {
+            if (persistedData.get().key_blue) {
+                door.destroy();
+                persistedData.set('door_blue', true);
+            } else {
+                player.movement = null;
+            }
+        })
+        
         game.detectTypes(collision, Player, Heart, function(player, heart) {
             heart.destroy();
             player.addHp();
@@ -456,6 +489,45 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(key)
+              break;
+              case "DoorRed":
+                if (persistedData.get().door_red) return;
+                var door = new DoorRed({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(door)
+              break;
+              case "DoorGreen":
+                if (persistedData.get().door_green) return;
+                var door = new DoorGreen({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(door)
+              break;
+              case "DoorBlue":
+                if (persistedData.get().door_blue) return;
+                var door = new DoorBlue({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(door)
               break;
               case "Enemy":
                 var enemy = new Enemy({

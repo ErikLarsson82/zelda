@@ -20,6 +20,15 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var key_blue = new Image();
   key_blue.src = "./assets/images/key_blue.png";
 
+  var door_red = new Image();
+  door_red.src = "./assets/images/lock_red.png";
+
+  var door_green = new Image();
+  door_green.src = "./assets/images/lock_green.png";
+
+  var door_blue = new Image();
+  door_blue.src = "./assets/images/lock_blue.png";
+
   var enemy1 = new Image();
   enemy1.src = "./assets/images/enemy1.png";
 
@@ -89,6 +98,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   });
 
   return {
+    door_red: door_red,
+    door_green: door_green,
+    door_blue: door_blue,
     key_red: key_red,
     key_green: key_green,
     key_blue: key_blue,
