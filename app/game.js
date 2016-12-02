@@ -36,8 +36,6 @@ define('app/game', [
     
     var game = {}
 
-    var checkpoint = "0";
-
     game.init = function(destination) {
         this.gameObjects = [];
 
@@ -45,7 +43,7 @@ define('app/game', [
         if (!destination) {
             //Player died or started game
             destination = {
-                map: checkpoint,
+                map: persistedData.get().checkpoint,
                 checkpoint: true
             }
             loadMap(destination);
@@ -91,7 +89,7 @@ define('app/game', [
     game.tick = function(delta) {
 
         if (game.endConditions()) {
-            persistedData.set({ hp: 3 });
+            persistedData.set('hp', 3);
             game.init();
         }
 
@@ -171,7 +169,7 @@ define('app/game', [
 
         game.detectTypes(collision, Player, Teleport, function(player, teleport) {
             if (player.collideWithTeleport()) {
-                persistedData.set({ hp: game.player.hp });
+                persistedData.set('hp', game.player.hp);
                 game.init(teleport.destination);
             }
         })
@@ -359,7 +357,12 @@ define('app/game', [
 
     function loadMap(destination) {
 
-        _.each(map.getMap(destination.map).data, function(row, rowIdx) {
+        var room = map.getMap(destination.map)
+        if (room.checkpoint) {
+            persistedData.set('checkpoint', destination.map);
+        }
+
+        _.each(room.data, function(row, rowIdx) {
           _.each(row, function(column, colIdx) {
             if (!column) return;
             switch(column.type) {
