@@ -14,8 +14,8 @@ define('app/Player', [
             this.input = config.input;
             this.aabb = config.aabb;
             this.color = config.color || "red";
-            this.hurtSpeed = 2;
-            this.speed = 7;
+            this.hurtSpeed = 6;
+            this.speed = 4;
             this.invulnerableTimer = 0;
             this.swordTimer = 0;
             this.teleportTimer = 20;
@@ -58,10 +58,10 @@ define('app/Player', [
         }
         hurt(direction) {
             this.spawnParticles();
-            var normalized = utils.normalizeVector(direction, 1)
+            var normalized = utils.normalizeVector(direction, this.hurtSpeed)
             this.ignoreDynamicCollisions = true;
-            this.newMove(normalized, 4)
-            this.invulnerableTimer = 70;
+            this.newMove(normalized, 3)
+            this.invulnerableTimer = 30;
             this.hp--;
         }
         addHp(full) {
