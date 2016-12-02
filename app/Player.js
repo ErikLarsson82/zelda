@@ -14,10 +14,10 @@ define('app/Player', [
             this.aabb = config.aabb;
             this.color = config.color || "red";
             this.hurtSpeed = 2;
-            this.speed = 3;
+            this.speed = 7;
             this.invulnerableTimer = 0;
             this.swordTimer = 0;
-            this.teleportTimer = 100;
+            this.teleportTimer = 10;
             this.latestDirection = { x: 0, y: 1 }
             this.walkingSpritesheet = images.player_walking_up;
 
@@ -33,7 +33,7 @@ define('app/Player', [
                     if (config.initialMove === 3)
                         direction = { x: -this.speed, y: 0 }
                     this.newMove(direction, 1);
-                    this.teleportTimer = 100;
+                    this.teleportTimer = 10;
                 }
             }
         }

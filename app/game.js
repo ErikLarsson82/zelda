@@ -419,6 +419,7 @@ define('app/game', [
                 game.gameObjects.push(heart)
               break;
               case "KeyRed":
+                if (persistedData.get().key_red) return;
                 var key = new KeyRed({
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
@@ -431,6 +432,7 @@ define('app/game', [
                 game.gameObjects.push(key)
               break;
               case "KeyGreen":
+                if (persistedData.get().key_green) return;
                 var key = new KeyGreen({
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
@@ -443,6 +445,7 @@ define('app/game', [
                 game.gameObjects.push(key)
               break;
               case "KeyBlue":
+                if (persistedData.get().key_blue) return;
                 var key = new KeyBlue({
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
