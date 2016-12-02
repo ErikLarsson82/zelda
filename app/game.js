@@ -2,6 +2,7 @@ define('app/game', [
     'underscore',
     'userInput',
     'utils',
+    'app/persistedData',
     'app/map',
     'app/GameObject',
     'app/GridMover',
@@ -15,6 +16,7 @@ define('app/game', [
     _,
     userInput,
     utils,
+    persistedData,
     map,
     GameObject,
     GridMover,
@@ -69,6 +71,7 @@ define('app/game', [
             height: this.TILE_SIZE
           },
           game: this,
+          hp: persistedData.get().hp,
           initialMove: target.linkSpawnDirection,
           input: userInput.getInput
         })
@@ -81,8 +84,10 @@ define('app/game', [
 
     game.tick = function(delta) {
 
-        if (game.endConditions())
+        if (game.endConditions()) {
+            persistedData.set({ hp: 3 });
             game.init();
+        }
 
         _.each(this.gameObjects, function(gameObject) {
             gameObject.previousPosition.x = gameObject.aabb.x;
@@ -150,6 +155,7 @@ define('app/game', [
 
         game.detectTypes(collision, Player, Teleport, function(player, teleport) {
             if (player.collideWithTeleport()) {
+                persistedData.set({ hp: game.player.hp });
                 game.init(teleport.destination);
             }
         })

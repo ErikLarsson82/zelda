@@ -8,7 +8,7 @@ define('app/Player', [
     class Player extends GridMover {
         constructor(config) {
             super(config);
-            this.hp = 6;
+            this.hp = config.hp;
             this.input = config.input;
             this.aabb = config.aabb;
             this.color = config.color || "red";
