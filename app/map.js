@@ -345,7 +345,7 @@ define('app/map', [], function() {
             direction: 2,
             destination: {
                 map: "8",
-                teleport: "5"
+                teleport: "9"
             }
         }
         var t5 = {
@@ -371,7 +371,7 @@ define('app/map', [], function() {
             id: "7",
             direction: 1,
             destination: {
-                map: "0", //9
+                map: "9",
                 teleport: "0"
             }
         }
@@ -394,7 +394,6 @@ define('app/map', [], function() {
             }
         }
         maps["8"] = {
-            checkpoint: true,
             data: [
                 [  ,  ,t4,  ,t2,  ,  ,t3,  ,  ,  ,  ,  ,  ,  ,t8,  ,  ],
                 [  ,a ,b ,a ,b ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,b ,a ,  ],
@@ -404,7 +403,7 @@ define('app/map', [], function() {
                 [t7,b ,  ,a ,  ,a ,a ,  ,  ,a ,a ,a ,a ,a ,  ,  ,b ,t1],
                 [  ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,  ],
-                [t2,b ,  ,  ,s ,  ,a ,a ,a ,a ,a ,a ,  ,a ,  ,  ,b ,t5],
+                [t2,b ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ,a ,  ,  ,b ,t5],
                 [  ,a ,  ,  ,  ,  ,a ,a ,  ,  ,  ,  ,  ,a ,  ,  ,a ,  ],
                 [  ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,  ],
                 [  ,  ,t0,  ,  ,t2,  ,  ,t2,  ,  ,t9,  ,  ,t6,  ,  ,  ],
@@ -569,6 +568,44 @@ define('app/map', [], function() {
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 9
+        
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 3,
+            destination: {
+                map: "8",
+                teleport: "7"
+            }
+        }
+        var t1 = {
+            type: "Teleport",
+            id: "0",
+            direction: 1,
+            destination: {
+                map: "10",
+                teleport: "0"
+            }
+        }
+        maps["9"] = {
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,f ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,e ,  ,  ,  ,  ,  ,  ,b ,t0],
+                [t1,b ,  ,g ,  ,g ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [t1,b ,  ,  ,  ,  ,  ,  ,  ,e ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,f ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
         }
 
