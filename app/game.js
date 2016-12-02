@@ -38,9 +38,14 @@ define('app/game', [
         }
         
         var verticalOffset = (tele.linkSpawnDirection === 2) ? this.TILE_SIZE : 0;
+        var horizontalOffset = 0;
+        if (tele.linkSpawnDirection === 3)
+            horizontalOffset = -this.TILE_SIZE;
+        if (tele.linkSpawnDirection === 1)
+            horizontalOffset = this.TILE_SIZE;
         this.player = new Player({
           aabb: {
-            x: tele.aabb.x,
+            x: tele.aabb.x + horizontalOffset,
             y: tele.aabb.y + verticalOffset,
             width: this.TILE_SIZE * 2,
             height: this.TILE_SIZE
@@ -70,10 +75,11 @@ define('app/game', [
         })
     }
     game.draw = function(context, canvas) {
-        context.save();
-        context.translate(0, game.TILE_SIZE * 2);
         context.fillStyle = "white";
         context.fillRect(0,0,canvas.width, canvas.height);
+
+        context.save();
+        context.translate(-game.TILE_SIZE * 2, game.TILE_SIZE * 2);
 
         _.each(this.gameObjects, function(gameObject) {
             gameObject.draw(context);
@@ -116,8 +122,6 @@ define('app/game', [
         game.detectTypes(collision, Player, Teleport, function(player, teleport) {
             if (player.collideWithTeleport()) {
                 game.init(teleport.destination);
-            } else {
-                console.log('its false');
             }
         })
 
@@ -327,8 +331,8 @@ define('app/game', [
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
                     y: rowIdx * game.TILE_SIZE * 2,
-                    width: game.TILE_SIZE,
-                    height: game.TILE_SIZE
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
                   },
                   id: column.id,
                   linkSpawnDirection: column.direction,
