@@ -262,6 +262,7 @@ define('app/game', [
         
         game.detectTypes(collision, Player, Heart, function(player, heart) {
             heart.destroy();
+            game.playSound('pickupheart');
             player.addHp();
         })
 

@@ -34,6 +34,7 @@ requirejs([
     const miss = new Audio('assets/sounds/miss.ogg')
     const opendoor = new Audio('assets/sounds/opendoor.ogg')
     const takedamage = new Audio('assets/sounds/takedamage.ogg')
+    const pickupheart = new Audio('assets/sounds/pickupheart.ogg')
 
     const sfxs = {
       gameMusic: gameMusic,
@@ -42,7 +43,8 @@ requirejs([
       hit: hit,
       miss: miss,
       opendoor: opendoor,
-      takedamage: takedamage
+      takedamage: takedamage,
+      pickupheart: pickupheart
     }
 
     var muted = !false;
