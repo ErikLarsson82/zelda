@@ -9,7 +9,7 @@ define('app/Heart', [
             this.name = "Heart";
         }
         draw(context) {
-            context.drawImage(images.heart, this.aabb.x, this.aabb.y);
+            context.drawImage(images.heart, this.aabb.x - game.TILE_SIZE / 2, this.aabb.y - game.TILE_SIZE);
         }
     }
 

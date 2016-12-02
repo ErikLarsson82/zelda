@@ -119,8 +119,10 @@ define('app/game', [
         context.translate(-game.TILE_SIZE * 2, game.TILE_SIZE * 2);
 
         _.each(this.gameObjects, function(gameObject) {
-            gameObject.draw(context);
+            if (!(gameObject instanceof Player))
+                gameObject.draw(context);
         });
+        game.player.draw(context);
         context.restore();
 
         context.fillStyle = "black";
@@ -364,6 +366,18 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(game.tile)
+              break;
+              case "Heart":
+                var heart = new Heart({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE,
+                    height: game.TILE_SIZE
+                  },
+                  game: game
+                })
+                game.gameObjects.push(heart)
               break;
               case "Enemy":
                 var enemy = new Enemy({

@@ -10,6 +10,7 @@ define('app/map', [], function() {
 
         var e = { type: "Enemy" };
         var s = { type: "Spawn" };
+        var h = { type: "Heart" };
         
         var t1 = {
             type: "Teleport",
