@@ -12,6 +12,7 @@ define('app/game', [
     'app/Player',
     'app/Sword',
     'app/Enemy',
+    'app/EnemyStopperTile',
 ], function (
     _,
     userInput,
@@ -25,7 +26,8 @@ define('app/game', [
     Spawn,
     Player,
     Sword,
-    Enemy
+    Enemy,
+    EnemyStopperTile
 ) {    
     
     var game = {}
@@ -165,6 +167,11 @@ define('app/game', [
             enemy.movement = null;
         })
 
+        game.detectTypes(collision, Enemy, EnemyStopperTile, function(enemy, tile) {
+            game.alignDynamicWithStatic(enemy, tile);
+            enemy.movement = null;
+        })
+
         game.detectTypes(collision, Player, Enemy, function(player, enemy) {
             var knockDirection = game.decideKnockDirection(enemy, player);
             player.hurt(knockDirection);
@@ -175,6 +182,18 @@ define('app/game', [
             enemy.hurt(knockDirection);
             sword.destroy();
         })
+    }
+
+    game.detectTile = function(pos) {
+        var result = _.filter(this.gameObjects, function(obj) {
+            var tile = (obj instanceof Tile) || (obj instanceof EnemyStopperTile);
+            return (
+                obj.aabb.x === pos.x &&
+                obj.aabb.y === pos.y &&
+                tile
+            );
+        })
+        return result.length > 0;
     }
 
     game.decideKnockDirection = function(knocker, knockee) {
@@ -311,7 +330,7 @@ define('app/game', [
         //console.log(e.keyCode)
         switch(e.keyCode) {
             case 67:
-                game.enemy.hurt();
+                //game.enemy.hurt();
             break;
             case 73:
                 game.player.hurt();
@@ -338,7 +357,7 @@ define('app/game', [
                 game.gameObjects.push(game.tile)
               break;
               case "Enemy":
-                game.enemy = new Enemy({
+                var enemy = new Enemy({
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
                     y: rowIdx * game.TILE_SIZE * 2,
@@ -347,7 +366,19 @@ define('app/game', [
                   },
                   game: game
                 })
-                game.gameObjects.push(game.enemy)
+                game.gameObjects.push(enemy)
+              break;
+              case "EnemyStopperTile":
+                var enemyStopperTile = new EnemyStopperTile({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(enemyStopperTile)
               break;
               case "Sword":
                 game.sword = new Sword({
