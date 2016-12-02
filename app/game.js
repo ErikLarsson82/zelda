@@ -6,6 +6,7 @@ define('app/game', [
     'app/GameObject',
     'app/GridMover',
     'app/Tile',
+    'app/Teleport',
     'app/Player',
     'app/Sword',
     'app/Enemy',
@@ -17,6 +18,7 @@ define('app/game', [
     GameObject,
     GridMover,
     Tile,
+    Teleport,
     Player,
     Sword,
     Enemy
@@ -24,9 +26,30 @@ define('app/game', [
     
     var game = {}
 
-    game.init = function() {
+    game.init = function(destination) {
         this.gameObjects = [];
-        loadMap();
+        loadMap(destination);
+
+        var tele = this.findGameObject("teleport" + destination.teleport)
+        
+        if (!tele) {
+            console.warn('Problem with destination! Trying ', destination)
+            return;
+        }
+        
+        var verticalOffset = (tele.linkSpawnDirection === 2) ? this.TILE_SIZE : 0;
+        this.player = new Player({
+          aabb: {
+            x: tele.aabb.x,
+            y: tele.aabb.y + verticalOffset,
+            width: this.TILE_SIZE * 2,
+            height: this.TILE_SIZE
+          },
+          game: this,
+          initialMove: tele.linkSpawnDirection,
+          input: userInput.getInput
+        })
+        this.gameObjects.push(this.player)
     }
 
     game.tick = function(delta) {
@@ -47,12 +70,18 @@ define('app/game', [
         })
     }
     game.draw = function(context, canvas) {
+        context.save();
+        context.translate(0, game.TILE_SIZE * 2);
         context.fillStyle = "white";
         context.fillRect(0,0,canvas.width, canvas.height);
 
         _.each(this.gameObjects, function(gameObject) {
             gameObject.draw(context);
         });
+        context.restore();
+
+        context.fillStyle = "black";
+        context.fillRect(0,0,canvas.width, game.TILE_SIZE * 4);        
     }
 
     game.detectTypes = function(collision, type1, type2, callback) {
@@ -82,6 +111,14 @@ define('app/game', [
         game.detectTypes(collision, Player, Tile, function(player, tile) {
             game.alignDynamicWithStatic(player, tile);
             player.movement = null;
+        })
+
+        game.detectTypes(collision, Player, Teleport, function(player, teleport) {
+            if (player.collideWithTeleport()) {
+                game.init(teleport.destination);
+            } else {
+                console.log('its false');
+            }
         })
 
         game.detectTypes(collision, Enemy, Tile, function(enemy, tile) {
@@ -219,8 +256,14 @@ define('app/game', [
     game.addGameObject = function(obj) {
         this.gameObjects.push(obj);
     }.bind(game)
+
+    game.findGameObject = function(name) {
+        return _.find(this.gameObjects, function(obj) {
+            return obj.name === name;
+        })
+    }.bind(game)
     
-    game.TILE_SIZE = 16;
+    game.TILE_SIZE = 32;
 
     window.aabb = utils.isAABBOverlappingAABB.bind(utils);
     window.game = game;
@@ -237,16 +280,17 @@ define('app/game', [
         }
     })
 
-    function loadMap() {
+    function loadMap(destination) {
 
-        _.each(map.getMap(), function(row, rowIdx) {
+        _.each(map.getMap(destination.map), function(row, rowIdx) {
           _.each(row, function(column, colIdx) {
-            switch(column) {
-              case 1:
+            if (!column) return;
+            switch(column.type) {
+              case "Tile":
                 game.tile = new Tile({
                   aabb: {
-                    x: colIdx * game.TILE_SIZE,
-                    y: rowIdx * game.TILE_SIZE,
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
                     width: game.TILE_SIZE * 2,
                     height: game.TILE_SIZE * 2
                   },
@@ -254,24 +298,11 @@ define('app/game', [
                 })
                 game.gameObjects.push(game.tile)
               break;
-              case 2:
-                game.player = new Player({
-                  aabb: {
-                    x: colIdx * game.TILE_SIZE,
-                    y: rowIdx * game.TILE_SIZE,
-                    width: game.TILE_SIZE * 2,
-                    height: game.TILE_SIZE
-                  },
-                  game: game,
-                  input: userInput.getInput
-                })
-                game.gameObjects.push(game.player)
-              break;
-              case 3:
+              case "Enemy":
                 game.enemy = new Enemy({
                   aabb: {
-                    x: colIdx * game.TILE_SIZE,
-                    y: rowIdx * game.TILE_SIZE,
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
                     width: game.TILE_SIZE * 2,
                     height: game.TILE_SIZE * 2
                   },
@@ -279,17 +310,32 @@ define('app/game', [
                 })
                 game.gameObjects.push(game.enemy)
               break;
-              case 4:
+              case "Sword":
                 game.sword = new Sword({
                   aabb: {
-                    x: colIdx * game.TILE_SIZE,
-                    y: rowIdx * game.TILE_SIZE,
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
                     width: game.TILE_SIZE * 2,
                     height: game.TILE_SIZE * 2
                   },
                   game: game
                 })
                 game.gameObjects.push(game.sword)
+              break;
+              case "Teleport":
+                var teleport = new Teleport({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE,
+                    height: game.TILE_SIZE
+                  },
+                  id: column.id,
+                  linkSpawnDirection: column.direction,
+                  destination: column.destination,
+                  game: game
+                })
+                game.gameObjects.push(teleport)
               break;
             }
           })

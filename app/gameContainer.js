@@ -15,7 +15,7 @@ requirejs([
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
 
-    game.init();
+    game.init({ map: "0", teleport: "0"});
     
     var config = {
         callback: function(delta) { game.tick(delta); game.draw(context, canvas); },

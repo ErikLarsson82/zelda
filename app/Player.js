@@ -12,9 +12,25 @@ define('app/Player', [
             this.aabb = config.aabb;
             this.color = config.color || "red";
             this.hurtSpeed = 2;
+            this.speed = 1.4;
             this.invulnerableTimer = 0;
             this.swordTimer = 0;
+            this.teleportTimer = 100;
             this.latestDirection = { x: 0, y: 1 }
+            this.initialMove = function() {
+                var direction = { x: 0, y: 0 }
+                if (config.initialMove === 0)
+                    direction = { x: 0, y: -this.speed }
+                if (config.initialMove === 1)
+                    direction = { x: this.speed, y: 0 }
+                if (config.initialMove === 2)
+                    direction = { x: 0, y: this.speed }
+                if (config.initialMove === 3)
+                    direction = { x: -this.speed, y: 0 }
+                console.log(this, direction)
+                this.newMove(direction, 1);
+                this.teleportTimer = 100;
+            }
         }
         hurt(direction) {
             var normalized = utils.normalizeVector(direction, 1)
@@ -26,7 +42,14 @@ define('app/Player', [
             var pad = this.input(0);
 
             this.invulnerableTimer--;
+            this.teleportTimer--;
             this.swordTimer--;
+
+            if (this.initialMove) {
+                console.log('initial move');
+                this.initialMove();
+                this.initialMove = null;
+            }
 
             if (this.invulnerableTimer < 0 && this.swordTimer < 0) {
                 this.ignoreDynamicCollisions = false;
@@ -40,6 +63,9 @@ define('app/Player', [
             if (direction.x !== 0 || direction.y !== 0)
                 this.latestDirection = direction;
 
+        }
+        collideWithTeleport() {
+            return (this.teleportTimer < 0);
         }
         spawnSword() {
             var heightMultiplication = (Math.abs(this.latestDirection.y) > 0) ? 2 : 1;
@@ -75,11 +101,10 @@ define('app/Player', [
                 pad.buttons[14].pressed ||
                 pad.buttons[15].pressed
             ) {
-                var speed = 1.4
-                var x1 = (pad.buttons[15].pressed) ? speed : 0;
-                var x2 = (pad.buttons[14].pressed) ? -speed : 0;
-                var y1 = (pad.buttons[13].pressed) ? speed : 0;
-                var y2 = (pad.buttons[12].pressed) ? -speed : 0;
+                var x1 = (pad.buttons[15].pressed) ? this.speed : 0;
+                var x2 = (pad.buttons[14].pressed) ? -this.speed : 0;
+                var y1 = (pad.buttons[13].pressed) ? this.speed : 0;
+                var y2 = (pad.buttons[12].pressed) ? -this.speed : 0;
 
                 //Remove eventual diagonal d-pad
                 if (Math.abs(x1) || Math.abs(x2)) {
@@ -92,6 +117,7 @@ define('app/Player', [
                     y: y1 + y2
                 }
                 if (direction.x === 0 && direction.y === 0) return;
+                //console.log(direction)
                 this.newMove(direction, 1);
             }
         }
