@@ -12,6 +12,10 @@ define('app/map', [], function() {
         var s = { type: "Spawn" };
         var h = { type: "Heart" };
         
+        var kR = { type: "KeyRed" };
+        var kG = { type: "KeyGreen" };
+        var kB = { type: "KeyBlue" };
+        
         var t1 = {
             type: "Teleport",
             id: "0",
@@ -39,7 +43,7 @@ define('app/map', [], function() {
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,t2],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,kR,  ,kG,  ,kB,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,s ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],

@@ -11,6 +11,15 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var tile = new Image();
   tile.src = "./assets/images/wall.png";
 
+  var key_red = new Image();
+  key_red.src = "./assets/images/key_red.png";
+
+  var key_green = new Image();
+  key_green.src = "./assets/images/key_green.png";
+
+  var key_blue = new Image();
+  key_blue.src = "./assets/images/key_blue.png";
+
   var enemy1 = new Image();
   enemy1.src = "./assets/images/enemy1.png";
 
@@ -80,6 +89,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   });
 
   return {
+    key_red: key_red,
+    key_green: key_green,
+    key_blue: key_blue,
     swordeffect_up: swordeffect_up,
     swordeffect_down: swordeffect_down,
     swordeffect_left: swordeffect_left,

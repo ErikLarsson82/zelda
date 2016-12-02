@@ -15,6 +15,9 @@ define('app/game', [
     'app/Enemy',
     'app/EnemyStopperTile',
     'app/Heart',
+    'app/KeyRed',
+    'app/KeyGreen',
+    'app/KeyBlue',
 ], function (
     _,
     userInput,
@@ -31,7 +34,10 @@ define('app/game', [
     Sword,
     Enemy,
     EnemyStopperTile,
-    Heart
+    Heart,
+    KeyRed,
+    KeyGreen,
+    KeyBlue
 ) {    
     
     var game = {}
@@ -126,16 +132,23 @@ define('app/game', [
         context.fillStyle = "black";
         context.fillRect(0,0,canvas.width, game.TILE_SIZE * 4);
 
-        game.drawHealth(context);
+        game.drawStatusBar(context);
     }
 
-    game.drawHealth = function(context) {
+    game.drawStatusBar = function(context) {
+        //hearts
         _.each(new Array(6), function(unused, idx) {
             context.drawImage(images.GUI_emptyheart, 600 + (64 * idx), 32);
         })
         _.each(new Array(game.player.hp), function(unused, idx) {
             context.drawImage(images.GUI_heart, 600 + (64 * idx), 32);
         })
+
+        //keys
+        var data = persistedData.get();
+        if (data.key_red) context.drawImage(images.key_red, 100, 32);
+        if (data.key_green) context.drawImage(images.key_green, 164, 32);
+        if (data.key_blue) context.drawImage(images.key_blue, 228, 32);
     }
 
     game.detectTypes = function(collision, type1, type2, callback) {
@@ -182,6 +195,21 @@ define('app/game', [
         game.detectTypes(collision, Enemy, EnemyStopperTile, function(enemy, tile) {
             game.alignDynamicWithStatic(enemy, tile);
             enemy.movement = null;
+        })
+
+        game.detectTypes(collision, Player, KeyRed, function(player, key) {
+            key.destroy();
+            persistedData.set('key_red', true);
+        })
+        
+        game.detectTypes(collision, Player, KeyGreen, function(player, key) {
+            key.destroy();
+            persistedData.set('key_green', true);
+        })
+
+        game.detectTypes(collision, Player, KeyBlue, function(player, key) {
+            key.destroy();
+            persistedData.set('key_blue', true);
         })
 
         game.detectTypes(collision, Player, Heart, function(player, heart) {
@@ -389,6 +417,42 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(heart)
+              break;
+              case "KeyRed":
+                var key = new KeyRed({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(key)
+              break;
+              case "KeyGreen":
+                var key = new KeyGreen({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(key)
+              break;
+              case "KeyBlue":
+                var key = new KeyBlue({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(key)
               break;
               case "Enemy":
                 var enemy = new Enemy({
