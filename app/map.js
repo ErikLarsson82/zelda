@@ -300,6 +300,147 @@ define('app/map', [], function() {
             ]
         }
 
+
+        // ROOM 8
+
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 0,
+            destination: {
+                map: "11",
+                teleport: "0"
+            }
+        }
+        var t1 = {
+            type: "Teleport",
+            id: "1",
+            direction: 3,
+            destination: {
+                map: "4",
+                teleport: "0"
+            }
+        }
+        var t2 = {
+            type: "Teleport",
+            id: "2",
+            direction: 0,
+            destination: {
+                map: "8",
+                teleport: "1"
+            }
+        }
+        var t3 = {
+            type: "Teleport",
+            id: "3",
+            direction: 0,
+            destination: {
+                map: "8",
+                teleport: "5"
+            }
+        }
+        var t4 = {
+            type: "Teleport",
+            id: "4",
+            direction: 2,
+            destination: {
+                map: "8",
+                teleport: "5"
+            }
+        }
+        var t5 = {
+            type: "Teleport",
+            id: "5",
+            direction: 3,
+            destination: {
+                map: "8",
+                teleport: "4"
+            }
+        }
+        var t6 = {
+            type: "Teleport",
+            id: "6",
+            direction: 0,
+            destination: {
+                map: "8",
+                teleport: "1"
+            }
+        }
+        var t7 = {
+            type: "Teleport",
+            id: "7",
+            direction: 1,
+            destination: {
+                map: "0", //9
+                teleport: "0"
+            }
+        }
+        var t8 = {
+            type: "Teleport",
+            id: "8",
+            direction: 2,
+            destination: {
+                map: "8",
+                teleport: "9"
+            }
+        }
+        var t9 = {
+            type: "Teleport",
+            id: "9",
+            direction: 0,
+            destination: {
+                map: "8",
+                teleport: "8"
+            }
+        }
+        maps["8"] = {
+            checkpoint: true,
+            data: [
+                [  ,  ,t4,  ,t2,  ,  ,t3,  ,  ,  ,  ,  ,  ,  ,t8,  ,  ],
+                [  ,a ,b ,a ,b ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,b ,a ,  ],
+                [  ,a ,  ,a ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,a ,  ],
+                [  ,a ,  ,a ,a ,  ,a ,a ,a ,a ,a ,a ,  ,a ,  ,a ,a ,  ],
+                [  ,a ,  ,a ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,a ,a ,  ],
+                [t7,b ,  ,a ,  ,a ,a ,  ,  ,a ,a ,a ,a ,a ,  ,  ,b ,t1],
+                [  ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,  ],
+                [t2,b ,  ,  ,s ,  ,a ,a ,a ,a ,a ,a ,  ,a ,  ,  ,b ,t5],
+                [  ,a ,  ,  ,  ,  ,a ,a ,  ,  ,  ,  ,  ,a ,  ,  ,a ,  ],
+                [  ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,b ,a ,a ,  ],
+                [  ,  ,t0,  ,  ,t2,  ,  ,t2,  ,  ,t9,  ,  ,t6,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 11
+        
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 2,
+            destination: {
+                map: "8",
+                teleport: "0"
+            }
+        }
+        maps["11"] = {
+            checkpoint: true,
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,s ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,h ,  ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,h ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,  ,h ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
         return maps[id];    
     }
   }
