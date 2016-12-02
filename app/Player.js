@@ -1,10 +1,11 @@
 define('app/Player', [
     'app/GridMover',
+    'app/Particle',
     'app/Sword',
     'utils',
     'underscore',
     'app/images'
-], function(GridMover, Sword, utils, _, images) { 
+], function(GridMover, Particle, Sword, utils, _, images) { 
 
     class Player extends GridMover {
         constructor(config) {
@@ -38,7 +39,25 @@ define('app/Player', [
                 }
             }
         }
+        spawnParticles() {
+            _.each(new Array(10), () => {
+              var particleSettings = {
+                aabb: {
+                  x: this.aabb.x + game.TILE_SIZE,
+                  y: this.aabb.y + game.TILE_SIZE,
+                },
+                velocity: {
+                  x: (Math.random() - 0.5) * 4,
+                  y: (Math.random() - 0.5) * 4,
+                },
+                image: images.player_blood,
+                lifetime: 70,
+              }
+              game.addGameObject(new Particle(particleSettings));
+            })
+        }
         hurt(direction) {
+            this.spawnParticles();
             var normalized = utils.normalizeVector(direction, 1)
             this.ignoreDynamicCollisions = true;
             this.newMove(normalized, 4)

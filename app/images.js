@@ -8,6 +8,12 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var GUI_heart = new Image();
   GUI_heart.src = "./assets/images/GUI_heart.png";
 
+  var enemy_blood = new Image();
+  enemy_blood.src = "./assets/images/enemy_blood.png";
+
+  var player_blood = new Image();
+  player_blood.src = "./assets/images/player_blood.png";
+
   var tile = new Image();
   tile.src = "./assets/images/wall.png";
 
@@ -107,6 +113,8 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   });
 
   return {
+    player_blood: player_blood,
+    enemy_blood: enemy_blood,
     door_red: door_red,
     door_green: door_green,
     door_blue: door_blue,

@@ -1,11 +1,12 @@
 define('app/EnemySlider', [
     'app/GridMover',
+    'app/Particle',
     'app/Heart',
     'app/images',
     'SpriteSheet',
     'utils',
     'underscore'
-], function(GridMover, Heart, images, SpriteSheet, utils, _) { 
+], function(GridMover, Particle, Heart, images, SpriteSheet, utils, _) { 
 
     class EnemySlider extends GridMover {
         constructor(config) {
@@ -27,8 +28,26 @@ define('app/EnemySlider', [
                 autoPlay: true
               });
         }
+        spawnBlood() {
+            _.each(new Array(10), () => {
+              var particleSettings = {
+                aabb: {
+                  x: this.aabb.x + game.TILE_SIZE,
+                  y: this.aabb.y + game.TILE_SIZE,
+                },
+                velocity: {
+                  x: (Math.random() - 0.5) * 4,
+                  y: (Math.random() - 0.5) * 4,
+                },
+                image: images.enemy_blood,
+                lifetime: 70,
+              }
+              game.addGameObject(new Particle(particleSettings));
+            })
+        }
         hurt(direction) {
             this.hp--;
+            this.spawnBlood();
             if (this.hp > 0) {
                 this.ignoreDynamicCollisions = true;
                 var normalized = utils.normalizeVector(direction, 7)
