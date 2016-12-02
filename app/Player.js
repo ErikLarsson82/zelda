@@ -2,8 +2,9 @@ define('app/Player', [
     'app/GridMover',
     'app/Sword',
     'utils',
-    'underscore'
-], function(GridMover, Sword, utils, _) { 
+    'underscore',
+    'app/images'
+], function(GridMover, Sword, utils, _, images) { 
 
     class Player extends GridMover {
         constructor(config) {
@@ -18,6 +19,7 @@ define('app/Player', [
             this.swordTimer = 0;
             this.teleportTimer = 100;
             this.latestDirection = { x: 0, y: 1 }
+            this.walkingSpritesheet = images.player_walking_up;
 
             if (config.initialMove) {
                 this.initialMove = function() {
@@ -51,7 +53,8 @@ define('app/Player', [
         }
         tick() {
             var pad = this.input(0);
-
+            this.walkingSpritesheet.tick(1000/60);
+                
             this.invulnerableTimer--;
             this.teleportTimer--;
             this.swordTimer--;
@@ -98,6 +101,7 @@ define('app/Player', [
         }
         makeDecision(pad) {
             if (this.movement !== null) return;
+            this.walkingSpritesheet.pause();
 
             if (pad.buttons[2].pressed && this.swordTimer < 0) {
                 this.spawnSword();
@@ -127,13 +131,31 @@ define('app/Player', [
                     y: y1 + y2
                 }
                 if (direction.x === 0 && direction.y === 0) return;
+                this.setNewWalkingSpritesheet(direction);
+                this.walkingSpritesheet.play();
                 this.newMove(direction, 1);
+            }
+        }
+        setNewWalkingSpritesheet(direction) {
+            if (direction.x < 0) {
+                this.walkingSpritesheet = images.player_walking_left;
+            }
+            if (direction.x > 0) {
+                this.walkingSpritesheet = images.player_walking_right;
+            }
+            if (direction.y < 0) {
+                this.walkingSpritesheet = images.player_walking_up;
+            }
+            if (direction.y > 0) {
+                this.walkingSpritesheet = images.player_walking_down;
             }
         }
         draw(context) {
 
-            context.fillStyle = (this.invulnerableTimer < 0) ? this.color : "black";
-            context.fillRect(this.aabb.x, this.aabb.y, this.aabb.width, this.aabb.height);
+            context.save();
+            context.translate(this.aabb.x, this.aabb.y - game.TILE_SIZE);
+            this.walkingSpritesheet.draw(context);
+            context.restore();
         }
     }
 
