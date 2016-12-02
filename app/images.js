@@ -14,6 +14,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var player_blood = new Image();
   player_blood.src = "./assets/images/player_blood.png";
 
+  var spawn_particles = new Image();
+  spawn_particles.src = "./assets/images/spawn_particles.png";
+
   var tile = new Image();
   tile.src = "./assets/images/wall.png";
 
@@ -40,6 +43,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
 
   var door_blue = new Image();
   door_blue.src = "./assets/images/lock_blue.png";
+
+  var checkpoint = new Image();
+  checkpoint.src = "./assets/images/checkpoint.png";
 
   var enemy1 = new Image();
   enemy1.src = "./assets/images/enemy1.png";
@@ -113,6 +119,8 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   });
 
   return {
+    checkpoint: checkpoint,
+    spawn_particles: spawn_particles,
     player_blood: player_blood,
     enemy_blood: enemy_blood,
     door_red: door_red,

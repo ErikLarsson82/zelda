@@ -6,6 +6,7 @@ define('app/game', [
     'app/persistedData',
     'app/map',
     'app/GameObject',
+    'app/Particle',
     'app/GridMover',
     'app/Tile',
     'app/WinTile',
@@ -31,6 +32,7 @@ define('app/game', [
     persistedData,
     map,
     GameObject,
+    Particle,
     GridMover,
     Tile,
     WinTile,
@@ -461,11 +463,34 @@ define('app/game', [
         }
     })
 
+    function createParticlesAtSpawn() {
+        var spawn = game.findGameObject('Spawn');
+        _.each(new Array(20), () => {
+          var particleSettings = {
+            aabb: {
+              x: spawn.aabb.x + game.TILE_SIZE,
+              y: spawn.aabb.y + game.TILE_SIZE,
+            },
+            velocity: {
+              x: (Math.random() - 0.5) * 10,
+              y: (Math.random() - 0.5) * 10,
+            },
+            image: images.spawn_particles,
+            lifetime: 90,
+          }
+          game.addGameObject(new Particle(particleSettings));
+        })
+    }
+
     function loadMap(destination) {
 
         var room = map.getMap(destination.map)
-        if (room.checkpoint) {
-            persistedData.set('checkpoint', destination.map);
+        var postGenerate;
+        if (room.checkpoint && persistedData.get().checkpoint !== destination.map) {
+            postGenerate = function() {
+                createParticlesAtSpawn();
+                persistedData.set('checkpoint', destination.map);
+            }
         }
         if (room.win) {
             game.playSound('gameMusic', true)
@@ -669,6 +694,8 @@ define('app/game', [
             }
           })
         })
+
+        postGenerate && postGenerate();
     }
 
     return game;
