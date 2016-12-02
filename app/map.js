@@ -23,7 +23,8 @@ define('app/map', [], function() {
         var dG = { type: "DoorGreen" };
         var dB = { type: "DoorBlue" };
         
-        var t1 = {
+        // ROOM 0
+        var t0 = {
             type: "Teleport",
             id: "0",
             direction: 2,
@@ -32,7 +33,7 @@ define('app/map', [], function() {
                 teleport: "0"
             }
         }
-        var t2 = {
+        var t1 = {
             type: "Teleport",
             id: "1",
             direction: 3,
@@ -44,22 +45,23 @@ define('app/map', [], function() {
         maps["0"] = {
             checkpoint: true,
             data: [
-                [  ,  ,  ,  ,  ,  ,  ,a ,t1,a ,  ,  ,  ,  ,  ,  ,  ,  ],
-                [  ,a ,a ,a ,a ,a ,a ,a ,dR,a ,a ,a ,a ,a ,a ,a ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,t2],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,s ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,a ,t0,a ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,a ,  ,  ,  ,a ,  ,  ,h ,  ,a ,  ],
+                [  ,a ,  ,h ,  ,  ,  ,  ,  ,  ,  ,a ,  ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,a ,  ,a ,  ,  ,b ,t1],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,  ,s ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
         }
         
-        var t1 = {
+        // ROOM 1
+        var t0 = {
             type: "Teleport",
             id: "0",
             direction: 0,
@@ -68,34 +70,34 @@ define('app/map', [], function() {
                 teleport: "0"
             }
         }
-        var t2 = {
+        var t1 = {
             type: "Teleport",
             id: "1",
-            direction: 0,
+            direction: 2,
             destination: {
-                map: "3",
-                spawn: true
+                map: "5",
+                teleport: "1"
             }
         }
         maps["1"] = {
-            checkpoint: true,
             data: [
-                [  ,  ,  ,  ,  ,  ,  ,  ,t2,  ,  ,  ,  ,  ,  ,  ,  ,  ],
-                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,a ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,e ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,e ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,s ,  ,  ,  ,e ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,t1,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,a ,a ,  ,a ,a ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,e ,  ,  ,  ,a ,  ,a ,  ,  ,e ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,e ,  ,  ,e ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
         }
 
-        var t1 = {
+        // ROOM 2
+        var t0 = {
             type: "Teleport",
             id: "0",
             direction: 1,
@@ -105,39 +107,98 @@ define('app/map', [], function() {
             }
         }
 
+        var t1 = {
+            type: "Teleport",
+            id: "1",
+            direction: 3,
+            destination: {
+                map: "3",
+                teleport: "0"
+            }
+        }
+
         maps["2"] = {
             checkpoint: false,
             data: [
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,f ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [t1,b ,  ,  ,  ,kR,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,g ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
-                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,b ,t1],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,e ,  ,  ,a ,  ],
+                [t0,b ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
         }
 
+        // ROOM 3
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 1,
+            destination: {
+                map: "2",
+                teleport: "1"
+            }
+        }
+
         maps["3"] = {
-            win: true,
             data: [
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
-                [  ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,s ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,c ,  ],
-                [  ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,c ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,e ,  ,  ,a ,  ],
+                [t0,b ,  ,  ,  ,  ,  ,  ,  ,  ,  ,e ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,  ,kG,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,a ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
+        // ROOM 5
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 2,
+            destination: {
+                map: "6",
+                teleport: "0"
+            }
+        }
+
+        var t1 = {
+            type: "Teleport",
+            id: "1",
+            direction: 0,
+            destination: {
+                map: "1",
+                teleport: "1"
+            }
+        }
+
+        maps["5"] = {
+            checkpoint: true,
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,s ,  ,  ,  ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,  ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,t1,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
         }
 
