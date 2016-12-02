@@ -26,14 +26,38 @@ html, body {
 .text {
     margin: 20px;
 }
+.instructions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 </style>
 </head>
 <body>
 <div class="container">
     <canvas id="canvas" width="1024" height="768"></canvas>
     <div class="text">
-        <h1>Zelda:</h1>
-        <p>Vad gör jag!?</p>
+        <h1>Instructions:</h1>
+        <div class="instructions">
+            <div>
+                <h2>Keyboard:</h2>
+                <p>Arrow keys - Walk</p>
+                <p>Z - Use sword</p>
+            </div>
+            <div>
+                <h2>Controller (PS4):</h2>
+                <p>D-pad - Walk</p>
+                <p>X - Use sword</p>
+            </div>
+            <div>
+                <h2>Controller (Xbox):</h2>
+                <p>D-pad - Walk</p>
+                <p>A - Use sword</p>
+            </div>
+        </div>
+        <h2>Created on 2016-12-02 by:</h2>
+        <p>Fredrik Järnbröst - Design, Graphics, Music, Sound</p>
+        <p>Erik Larsson - Design, Programming, Level Design</p>
     </div>
 </div>
 </body>
