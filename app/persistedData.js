@@ -1,6 +1,6 @@
 define('app/persistedData', [], function() {
   var data = {
-    hp: 3,
+    hp: 1,
     checkpoint: "0",
     key_red: false,
     key_blue: false,
