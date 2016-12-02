@@ -82,14 +82,15 @@ define('app/Player', [
         }
         spawnSword() {
             var heightMultiplication = (Math.abs(this.latestDirection.y) > 0) ? 2 : 1;
-            var heightAddition = (this.latestDirection.y < 0) ? -game.TILE_SIZE : 0;
             var normalizedLatest = utils.normalizeVector(this.latestDirection, game.TILE_SIZE)
+            var yOffset = (normalizedLatest.y > 0) ? 0 : game.TILE_SIZE;
+
             var swordConfig = {
               aabb: {
                 x: this.aabb.x + normalizedLatest.x * 2,
-                y: this.aabb.y + normalizedLatest.y + heightAddition,// heightMultiplication,
+                y: this.aabb.y + normalizedLatest.y - yOffset,
                 width: game.TILE_SIZE * 2,
-                height: game.TILE_SIZE * heightMultiplication,
+                height: game.TILE_SIZE * 2,
               },
               direction: {
                 x: this.latestDirection.x,

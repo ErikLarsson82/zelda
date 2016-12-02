@@ -1,9 +1,11 @@
 define('app/Enemy', [
     'app/GridMover',
     'app/Heart',
+    'app/images',
+    'SpriteSheet',
     'utils',
     'underscore'
-], function(GridMover, Heart, utils, _) { 
+], function(GridMover, Heart, images, SpriteSheet, utils, _) { 
 
     class Enemy extends GridMover {
         constructor(config) {
@@ -13,6 +15,15 @@ define('app/Enemy', [
             this.hurtSpeed = 2;
             this.speed = 1;
             this.hp = 2;
+            this.spriteSheet = SpriteSheet.new(images.enemy1, {
+                frames: [200, 200],
+                x: 0,
+                y: 0,
+                width: 64,
+                height: 64,
+                restart: true,
+                autoPlay: true
+              });
         }
         hurt(direction) {
             this.hp--;
@@ -35,6 +46,7 @@ define('app/Enemy', [
             }
         }
         tick() {
+            this.spriteSheet.tick(1000/60);
             if (!this.movement) {
                 this.ignoreDynamicCollisions = false;
                 var direction;
@@ -97,8 +109,10 @@ define('app/Enemy', [
             super.tick();
         }
         draw(context) {
-            context.fillStyle = this.color;
-            context.fillRect(this.aabb.x, this.aabb.y, this.aabb.width, this.aabb.height);
+            context.save();
+            context.translate(this.aabb.x, this.aabb.y);
+            this.spriteSheet.draw(context);
+            context.restore();
         }
     }
 

@@ -1,6 +1,8 @@
 define('app/Sword', [
-    'app/GameObject'
-], function(GameObject) { 
+    'app/GameObject',
+    'app/SwordVisual',
+    'app/images'
+], function(GameObject, SwordVisual, images) { 
 
     class Sword extends GameObject {
         constructor(config) {
@@ -9,6 +11,7 @@ define('app/Sword', [
             this.color = config.color || "yellow";
             this.direction = config.direction;
             this.timer = 20;
+            game.addGameObject(new SwordVisual(config));
         }
         tick() {
             this.timer--;
@@ -17,6 +20,7 @@ define('app/Sword', [
         getDirection() {
             return this.direction;
         }
+        draw(context) {}
     }
 
     return Sword;
