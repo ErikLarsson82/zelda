@@ -11,10 +11,15 @@ define('app/Sword', [
             this.color = config.color || "yellow";
             this.direction = config.direction;
             this.timer = 20;
+            this.playedSound = false;
             game.addGameObject(new SwordVisual(config));
         }
         tick() {
             this.timer--;
+            if (!this.playedSound) {
+                this.playedSound = true;
+                game.playSound('miss');
+            }
             if (this.timer < 0) this.destroy()
         }
         getDirection() {

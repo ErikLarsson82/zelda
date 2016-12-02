@@ -94,6 +94,11 @@ define('app/game', [
         this.gameObjects.push(this.player)
     }
 
+    game.setSound = function(_playSound) {
+        game.playSound = _playSound;
+        game.playSound('gameMusic')
+    }
+    
     game.endConditions = function() {
         return (game.player.hp === 0)
     }
@@ -205,22 +210,26 @@ define('app/game', [
 
         game.detectTypes(collision, Player, KeyRed, function(player, key) {
             key.destroy();
+            game.playSound('foundkey');
             persistedData.set('key_red', true);
         })
         
         game.detectTypes(collision, Player, KeyGreen, function(player, key) {
             key.destroy();
+            game.playSound('foundkey');
             persistedData.set('key_green', true);
         })
 
         game.detectTypes(collision, Player, KeyBlue, function(player, key) {
             key.destroy();
+            game.playSound('foundkey');
             persistedData.set('key_blue', true);
         })
 
         game.detectTypes(collision, Player, DoorRed, function(player, door) {
             if (persistedData.get().key_red) {
                 door.destroy();
+                game.playSound('opendoor');
                 persistedData.set('door_red', true);
             } else {
                 player.movement = null;
@@ -230,6 +239,7 @@ define('app/game', [
         game.detectTypes(collision, Player, DoorGreen, function(player, door) {
             if (persistedData.get().key_green) {
                 door.destroy();
+                game.playSound('opendoor');
                 persistedData.set('door_green', true);
             } else {
                 player.movement = null;
@@ -239,6 +249,7 @@ define('app/game', [
         game.detectTypes(collision, Player, DoorBlue, function(player, door) {
             if (persistedData.get().key_blue) {
                 door.destroy();
+                game.playSound('opendoor');
                 persistedData.set('door_blue', true);
             } else {
                 player.movement = null;
@@ -253,11 +264,13 @@ define('app/game', [
         game.detectTypes(collision, Player, Enemy, function(player, enemy) {
             var knockDirection = game.decideKnockDirection(enemy, player);
             player.hurt(knockDirection);
+            game.playSound('takedamage');
         })
 
         game.detectTypes(collision, Sword, Enemy, function(sword, enemy) {
             var knockDirection = game.decideKnockDirection(sword, enemy);
             enemy.hurt(knockDirection);
+            game.playSound('hit');
             sword.destroy();
         })
     }
