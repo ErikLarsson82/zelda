@@ -110,7 +110,7 @@ define('app/game', [
         })
     }
     game.draw = function(context, canvas) {
-        context.fillStyle = "#1d2226";
+        context.fillStyle = "#1a1921";
         context.fillRect(0,0,canvas.width, canvas.height);
 
         context.save();
