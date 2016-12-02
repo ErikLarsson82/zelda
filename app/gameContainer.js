@@ -23,7 +23,7 @@ requirejs([
         this.play();
     }, false);
 
-    const victoryMusic = new Audio('assets/sounds/music1.ogg')
+    const victoryMusic = new Audio('assets/sounds/winmusic.ogg')
     victoryMusic.addEventListener('ended', function() {
         this.currentTime = 0;
         this.play();
@@ -45,7 +45,7 @@ requirejs([
       takedamage: takedamage
     }
 
-    var muted = false;
+    var muted = !false;
     window.addEventListener("keydown", function(e) {
       if (e.keyCode === 77) { // M - mute
         muted = !muted

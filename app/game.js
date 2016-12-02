@@ -60,6 +60,10 @@ define('app/game', [
             }
             loadMap(destination);
             target = this.findGameObject("Spawn")
+        } else if (destination.spawn) {
+            //Victory
+            loadMap(destination);
+            target = this.findGameObject("Spawn")
         } else {
             loadMap(destination);
             target = this.findGameObject("teleport" + destination.teleport)
@@ -434,6 +438,10 @@ define('app/game', [
         var room = map.getMap(destination.map)
         if (room.checkpoint) {
             persistedData.set('checkpoint', destination.map);
+        }
+        if (room.win) {
+            game.playSound('gameMusic', true)
+            game.playSound('victoryMusic')
         }
 
         _.each(room.data, function(row, rowIdx) {
