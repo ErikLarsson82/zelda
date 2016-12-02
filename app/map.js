@@ -226,10 +226,10 @@ define('app/map', [], function() {
         var t1 = {
             type: "Teleport",
             id: "1",
-            direction: 0,
+            direction: 2,
             destination: {
                 map: "7",
-                teleport: "1"
+                teleport: "0"
             }
         }
 
@@ -247,7 +247,7 @@ define('app/map', [], function() {
             data: [
                 [  ,  ,  ,  ,  ,  ,  ,  ,t1,  ,  ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,dG,a ,a ,a ,a ,a ,a ,a ,a ,  ],
-                [  ,a ,  ,a ,  ,  ,g ,  ,  ,  ,  ,  ,  ,  ,a ,a ,a ,  ],
+                [  ,a ,  ,a ,  ,  ,g ,  ,  ,kG,  ,  ,  ,  ,a ,a ,a ,  ],
                 [  ,a ,  ,  ,  ,a ,  ,a ,g ,a ,a ,a ,a ,a ,a ,  ,  ,t2],
                 [  ,a ,  ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,b ,a ,  ],
                 [  ,a ,  ,a ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,a ,  ],
@@ -438,6 +438,137 @@ define('app/map', [], function() {
                 [  ,a ,a ,  ,h ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 7
+
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 0,
+            destination: {
+                map: "6",
+                teleport: "1"
+            }
+        }
+
+        var t1 = {
+            type: "Teleport",
+            id: "1",
+            direction: 1,
+            destination: {
+                map: "8",
+                teleport: "0"
+            }
+        }
+
+        var t2 = {
+            type: "Teleport",
+            id: "2",
+            direction: 3,
+            destination: {
+                map: "12",
+                teleport: "0"
+            }
+        }
+
+        var t3 = {
+            type: "Teleport",
+            id: "3",
+            direction: 2,
+            destination: {
+                map: "14",
+                teleport: "0"
+            }
+        }
+
+        maps["7"] = {
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,t3,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,g ,a ,b ,a ,a ,e ,  ,a ,  ,  ,  ,g ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,  ,  ,a ,  ,  ,a ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,  ,  ,  ,e ,  ,  ,a ,  ,  ,  ,  ,  ,a ,  ],
+                [t1,  ,  ,dB,  ,  ,  ,  ,a ,a ,  ,  ,  ,  ,  ,  ,b ,t2],
+                [  ,a ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ,a ,  ],
+                [  ,a ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,a ,  ,a ,  ],
+                [  ,a ,a ,  ,g ,  ,a ,a ,  ,a ,  ,  ,a ,f ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 12
+
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 1,
+            destination: {
+                map: "7",
+                teleport: "2"
+            }
+        }
+
+        var t1 = {
+            type: "Teleport",
+            id: "1",
+            direction: 3,
+            destination: {
+                map: "13",
+                teleport: "0"
+            }
+        }
+
+        maps["12"] = {
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,g ,  ,  ,  ,  ,f ,  ,  ,  ,  ,  ,  ,g ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,e ,  ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,e ,  ,  ,e ,  ,  ,  ,  ,a ,  ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,a ,  ,a ,  ,a ,  ],
+                [  ,a ,  ,  ,e ,  ,a ,  ,  ,e ,  ,e ,  ,  ,  ,  ,dR,t1],
+                [t0,b ,  ,  ,  ,  ,e ,  ,  ,  ,  ,a ,  ,  ,  ,g ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,f ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 14
+
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 0,
+            destination: {
+                map: "7",
+                teleport: "3"
+            }
+        }
+
+        maps["14"] = {
+            checkpoint: true,
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,h ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,s ,  ,  ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,b ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,t0,  ,  ,  ],
             ]
         }
 
