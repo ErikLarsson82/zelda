@@ -152,9 +152,9 @@ define('app/game', [
 
         //keys
         var data = persistedData.get();
-        if (data.key_red) context.drawImage(images.key_red, 100, 32);
-        if (data.key_green) context.drawImage(images.key_green, 164, 32);
-        if (data.key_blue) context.drawImage(images.key_blue, 228, 32);
+        if (data.key_red && !data.door_red) context.drawImage(images.key_red, 100, 32);
+        if (data.key_green && !data.door_green) context.drawImage(images.key_green, 164, 32);
+        if (data.key_blue && !data.door_blue) context.drawImage(images.key_blue, 228, 32);
     }
 
     game.detectTypes = function(collision, type1, type2, callback) {
