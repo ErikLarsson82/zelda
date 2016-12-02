@@ -7,6 +7,7 @@ define('app/game', [
     'app/GridMover',
     'app/Tile',
     'app/Teleport',
+    'app/Spawn',
     'app/Player',
     'app/Sword',
     'app/Enemy',
@@ -19,6 +20,7 @@ define('app/game', [
     GridMover,
     Tile,
     Teleport,
+    Spawn,
     Player,
     Sword,
     Enemy
@@ -26,38 +28,62 @@ define('app/game', [
     
     var game = {}
 
+    var checkpoint = "0";
+
     game.init = function(destination) {
         this.gameObjects = [];
-        loadMap(destination);
 
-        var tele = this.findGameObject("teleport" + destination.teleport)
+        var target;
+        if (!destination) {
+            //Player died or started game
+            destination = {
+                map: checkpoint,
+                checkpoint: true
+            }
+            loadMap(destination);
+            target = this.findGameObject("Spawn")
+        } else {
+            loadMap(destination);
+            target = this.findGameObject("teleport" + destination.teleport)
+        }
         
-        if (!tele) {
+
+        
+        
+        if (!target) {
             console.warn('Problem with destination! Trying ', destination)
             return;
         }
         
-        var verticalOffset = (tele.linkSpawnDirection === 2) ? this.TILE_SIZE : 0;
+        var verticalOffset = (target.linkSpawnDirection === 2) ? this.TILE_SIZE : 0;
         var horizontalOffset = 0;
-        if (tele.linkSpawnDirection === 3)
+        if (target.linkSpawnDirection === 3)
             horizontalOffset = -this.TILE_SIZE;
-        if (tele.linkSpawnDirection === 1)
+        if (target.linkSpawnDirection === 1)
             horizontalOffset = this.TILE_SIZE;
         this.player = new Player({
           aabb: {
-            x: tele.aabb.x + horizontalOffset,
-            y: tele.aabb.y + verticalOffset,
+            x: target.aabb.x + horizontalOffset,
+            y: target.aabb.y + verticalOffset,
             width: this.TILE_SIZE * 2,
             height: this.TILE_SIZE
           },
           game: this,
-          initialMove: tele.linkSpawnDirection,
+          initialMove: target.linkSpawnDirection,
           input: userInput.getInput
         })
         this.gameObjects.push(this.player)
     }
 
+    game.endConditions = function() {
+        return (game.player.hp === 0)
+    }
+
     game.tick = function(delta) {
+
+        if (game.endConditions())
+            game.init();
+
         _.each(this.gameObjects, function(gameObject) {
             gameObject.previousPosition.x = gameObject.aabb.x;
             gameObject.previousPosition.y = gameObject.aabb.y;
@@ -87,7 +113,10 @@ define('app/game', [
         context.restore();
 
         context.fillStyle = "black";
-        context.fillRect(0,0,canvas.width, game.TILE_SIZE * 4);        
+        context.fillRect(0,0,canvas.width, game.TILE_SIZE * 4);
+
+        context.fillStyle = "white";
+        context.fillText(game.player.hp, 700, 100);       
     }
 
     game.detectTypes = function(collision, type1, type2, callback) {
@@ -286,7 +315,7 @@ define('app/game', [
 
     function loadMap(destination) {
 
-        _.each(map.getMap(destination.map), function(row, rowIdx) {
+        _.each(map.getMap(destination.map).data, function(row, rowIdx) {
           _.each(row, function(column, colIdx) {
             if (!column) return;
             switch(column.type) {
@@ -340,6 +369,18 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(teleport)
+              break;
+              case "Spawn":
+                var spawn = new Spawn({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(spawn);
               break;
             }
           })

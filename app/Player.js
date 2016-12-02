@@ -7,7 +7,8 @@ define('app/Player', [
 
     class Player extends GridMover {
         constructor(config) {
-            super(config)
+            super(config);
+            this.hp = 6;
             this.input = config.input;
             this.aabb = config.aabb;
             this.color = config.color || "red";
@@ -17,19 +18,21 @@ define('app/Player', [
             this.swordTimer = 0;
             this.teleportTimer = 100;
             this.latestDirection = { x: 0, y: 1 }
-            this.initialMove = function() {
-                var direction = { x: 0, y: 0 }
-                if (config.initialMove === 0)
-                    direction = { x: 0, y: -this.speed }
-                if (config.initialMove === 1)
-                    direction = { x: this.speed, y: 0 }
-                if (config.initialMove === 2)
-                    direction = { x: 0, y: this.speed }
-                if (config.initialMove === 3)
-                    direction = { x: -this.speed, y: 0 }
-                console.log(this, direction)
-                this.newMove(direction, 1);
-                this.teleportTimer = 100;
+
+            if (config.initialMove) {
+                this.initialMove = function() {
+                    var direction = { x: 0, y: 0 }
+                    if (config.initialMove === 0)
+                        direction = { x: 0, y: -this.speed }
+                    if (config.initialMove === 1)
+                        direction = { x: this.speed, y: 0 }
+                    if (config.initialMove === 2)
+                        direction = { x: 0, y: this.speed }
+                    if (config.initialMove === 3)
+                        direction = { x: -this.speed, y: 0 }
+                    this.newMove(direction, 1);
+                    this.teleportTimer = 100;
+                }
             }
         }
         hurt(direction) {
@@ -37,6 +40,7 @@ define('app/Player', [
             this.ignoreDynamicCollisions = true;
             this.newMove(normalized, 4)
             this.invulnerableTimer = 70;
+            this.hp--;
         }
         tick() {
             var pad = this.input(0);
@@ -46,7 +50,6 @@ define('app/Player', [
             this.swordTimer--;
 
             if (this.initialMove) {
-                console.log('initial move');
                 this.initialMove();
                 this.initialMove = null;
             }
@@ -117,7 +120,6 @@ define('app/Player', [
                     y: y1 + y2
                 }
                 if (direction.x === 0 && direction.y === 0) return;
-                //console.log(direction)
                 this.newMove(direction, 1);
             }
         }
