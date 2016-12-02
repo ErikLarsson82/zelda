@@ -11,6 +11,9 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var tile = new Image();
   tile.src = "./assets/images/wall.png";
 
+  var wintile = new Image();
+  wintile.src = "./assets/images/winwall.png";
+
   var key_red = new Image();
   key_red.src = "./assets/images/key_red.png";
 
@@ -113,6 +116,7 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
     GUI_emptyheart: GUI_emptyheart,
     GUI_heart: GUI_heart,
     tile: tile,
+    wintile: wintile,
     player_walking_up: player_walking_up,
     player_walking_down: player_walking_down,
     player_walking_left: player_walking_left,

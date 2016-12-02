@@ -8,6 +8,7 @@ define('app/game', [
     'app/GameObject',
     'app/GridMover',
     'app/Tile',
+    'app/WinTile',
     'app/Teleport',
     'app/Spawn',
     'app/Player',
@@ -31,6 +32,7 @@ define('app/game', [
     GameObject,
     GridMover,
     Tile,
+    WinTile,
     Teleport,
     Spawn,
     Player,
@@ -50,6 +52,7 @@ define('app/game', [
 
     game.init = function(destination) {
         this.gameObjects = [];
+        this.color = "#1a1921";
 
         var target;
         if (!destination) {
@@ -62,16 +65,14 @@ define('app/game', [
             target = this.findGameObject("Spawn")
         } else if (destination.spawn) {
             //Victory
+            this.color = "white";
             loadMap(destination);
             target = this.findGameObject("Spawn")
         } else {
             loadMap(destination);
             target = this.findGameObject("teleport" + destination.teleport)
         }
-        
-
-        
-        
+    
         if (!target) {
             console.warn('Problem with destination! Trying ', destination)
             return;
@@ -131,7 +132,7 @@ define('app/game', [
         })
     }
     game.draw = function(context, canvas) {
-        context.fillStyle = "#1a1921";
+        context.fillStyle = game.color;
         context.fillRect(0,0,canvas.width, canvas.height);
 
         context.save();
@@ -450,7 +451,7 @@ define('app/game', [
             if (!column) return;
             switch(column.type) {
               case "Tile":
-                game.tile = new Tile({
+                var tile = new Tile({
                   aabb: {
                     x: colIdx * game.TILE_SIZE * 2,
                     y: rowIdx * game.TILE_SIZE * 2,
@@ -459,7 +460,19 @@ define('app/game', [
                   },
                   game: game
                 })
-                game.gameObjects.push(game.tile)
+                game.gameObjects.push(tile)
+              break;
+              case "WinTile":
+                var wintile = new WinTile({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE * 2,
+                    height: game.TILE_SIZE * 2
+                  },
+                  game: game
+                })
+                game.gameObjects.push(wintile);
               break;
               case "Heart":
                 var heart = new Heart({
