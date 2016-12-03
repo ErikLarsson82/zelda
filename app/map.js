@@ -249,7 +249,7 @@ define('app/map', [], function() {
             data: [
                 [  ,  ,  ,  ,  ,  ,  ,  ,t1,  ,  ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,dG,a ,a ,a ,a ,a ,a ,a ,a ,  ],
-                [  ,a ,  ,a ,  ,  ,g ,  ,  ,kG,  ,  ,  ,  ,a ,a ,a ,  ],
+                [  ,a ,  ,a ,  ,  ,g ,  ,  ,  ,  ,  ,  ,  ,a ,a ,a ,  ],
                 [  ,a ,  ,  ,  ,a ,  ,a ,g ,a ,a ,a ,a ,a ,a ,  ,  ,t2],
                 [  ,a ,  ,a ,a ,a ,a ,a ,a ,a ,a ,  ,  ,  ,a ,b ,a ,  ],
                 [  ,a ,  ,a ,  ,a ,  ,  ,  ,  ,  ,  ,a ,  ,  ,  ,a ,  ],
