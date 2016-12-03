@@ -624,6 +624,7 @@ define('app/map', [], function() {
             }
         }
         maps["10"] = {
+            checkpoint: true,
             data: [
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
