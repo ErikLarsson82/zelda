@@ -52,6 +52,7 @@ define('app/Enemy', [
                 this.newMove(normalized, 3)
             } else {
                 this.destroy();
+                if (Math.random() > 0.33) return;
                 var heart = new Heart({
                   aabb: {
                     x: this.aabb.x,

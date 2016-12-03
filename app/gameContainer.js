@@ -47,7 +47,7 @@ requirejs([
       pickupheart: pickupheart
     }
 
-    var muted = !false;
+    var muted = false;
     window.addEventListener("keydown", function(e) {
       if (e.keyCode === 77) { // M - mute
         muted = !muted
