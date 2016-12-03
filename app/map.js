@@ -268,7 +268,7 @@ define('app/map', [], function() {
         var t0 = {
             type: "Teleport",
             id: "0",
-            direction: 0,
+            direction: 1,
             destination: {
                 map: "1",
                 teleport: "2"
