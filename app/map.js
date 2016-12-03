@@ -317,8 +317,8 @@ define('app/map', [], function() {
             id: "1",
             direction: 3,
             destination: {
-                map: "4",
-                teleport: "0"
+                map: "7",
+                teleport: "1"
             }
         }
         var t2 = {
@@ -459,7 +459,7 @@ define('app/map', [], function() {
             direction: 1,
             destination: {
                 map: "8",
-                teleport: "0"
+                teleport: "1"
             }
         }
 
@@ -585,7 +585,7 @@ define('app/map', [], function() {
         }
         var t1 = {
             type: "Teleport",
-            id: "0",
+            id: "1",
             direction: 1,
             destination: {
                 map: "10",
@@ -604,6 +604,35 @@ define('app/map', [], function() {
                 [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,  ,f ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
                 [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            ]
+        }
+
+
+        // ROOM 10
+
+        var t0 = {
+            type: "Teleport",
+            id: "0",
+            direction: 3,
+            destination: {
+                map: "9",
+                teleport: "1"
+            }
+        }
+        maps["10"] = {
+            data: [
+                [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,a ,a ,a ,  ,  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,g ,  ,  ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,kR,  ,e ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,e ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,  ,  ,  ,f ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,  ,a ,a ,  ,  ,  ,  ,  ,a ,a ,a ,a ,a ,a ,a ,  ],
+                [  ,a ,a ,a ,a ,a ,a ,  ,  ,  ,  ,  ,  ,s ,  ,  ,b ,t0],
                 [  ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,a ,  ],
                 [  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
             ]
