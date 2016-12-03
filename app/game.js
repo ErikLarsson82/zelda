@@ -73,7 +73,7 @@ define('app/game', [
             target = this.findGameObject("Spawn")
         } else if (destination.spawn) {
             //Victory
-            this.color = "white";
+            this.color = "#597d38";
             loadMap(destination);
             target = this.findGameObject("Spawn")
         } else {
