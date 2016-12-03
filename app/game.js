@@ -24,6 +24,8 @@ define('app/game', [
     'app/DoorRed',
     'app/DoorGreen',
     'app/DoorBlue',
+    'app/Flower1',
+    'app/Flower2',
 ], function (
     _,
     userInput,
@@ -49,7 +51,9 @@ define('app/game', [
     KeyBlue,
     DoorRed,
     DoorGreen,
-    DoorBlue
+    DoorBlue,
+    Flower1,
+    Flower2
 ) {    
     
     var game = {}
@@ -536,6 +540,30 @@ define('app/game', [
                   game: game
                 })
                 game.gameObjects.push(heart)
+              break;
+              case "Flower1":
+                var flower = new Flower1({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE,
+                    height: game.TILE_SIZE
+                  },
+                  game: game
+                })
+                game.gameObjects.push(flower)
+              break;
+              case "Flower2":
+                var flower = new Flower2({
+                  aabb: {
+                    x: colIdx * game.TILE_SIZE * 2,
+                    y: rowIdx * game.TILE_SIZE * 2,
+                    width: game.TILE_SIZE,
+                    height: game.TILE_SIZE
+                  },
+                  game: game
+                })
+                game.gameObjects.push(flower)
               break;
               case "KeyRed":
                 if (persistedData.get().key_red) return;

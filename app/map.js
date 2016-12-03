@@ -14,6 +14,8 @@ define('app/map', [], function() {
         var g = { type: "EnemySlider", horizontal: true };
         var s = { type: "Spawn" };
         var h = { type: "Heart" };
+        var i = { type: "Flower1" };
+        var j = { type: "Flower2" };
         
         var kR = { type: "KeyRed" };
         var kG = { type: "KeyGreen" };

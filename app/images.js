@@ -2,6 +2,12 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   var heart = new Image();
   heart.src = "./assets/images/heart.png";
 
+  var flower1 = new Image();
+  flower1.src = "./assets/images/flowers1.png";
+
+  var flower2 = new Image();
+  flower2.src = "./assets/images/flowers2.png";
+
   var GUI_emptyheart = new Image();
   GUI_emptyheart.src = "./assets/images/GUI_emptyheart.png";
 
@@ -119,6 +125,8 @@ define('app/images', ['SpriteSheet'], function(SpriteSheet) {
   });
 
   return {
+    flower1: flower1,
+    flower2: flower2,
     checkpoint: checkpoint,
     spawn_particles: spawn_particles,
     player_blood: player_blood,
